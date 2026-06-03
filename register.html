@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daftar – UMKMart</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#b5000b',
+              'primary-container': '#e30613',
+              secondary: '#5e5e5e',
+              surface: '#f8f9fb',
+              'surface-variant': '#e1e2e4',
+              'surface-container-low': '#f3f4f6',
+              'surface-container': '#edeef0',
+              'surface-container-high': '#e7e8ea',
+              'surface-container-highest': '#e1e2e4',
+              'card-bg': '#ffffff',
+              outline: '#936e69',
+              'outline-variant': '#e9bcb6',
+              success: '#10b981',
+              error: '#ba1a1a',
+              charcoal: '#1a1a2e',
+              muted: '#6b7280',
+            },
+            fontFamily: { display: ['Playfair Display', 'serif'] },
+          },
+        },
+      };
+    </script>
+    <style>
+      * {
+        font-family: 'DM Sans', sans-serif;
+      }
+      .font-display {
+        font-family: 'Playfair Display', serif;
+      }
+      .ti {
+        font-size: 24px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .bg-brand {
+        background: linear-gradient(135deg, #e30613 0%, #b5000b 100%);
+      }
+      .form-card {
+        animation: fadeUp 0.5s ease forwards;
+      }
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .input-field {
+        transition: all 0.2s;
+      }
+      .input-field:focus {
+        border-color: #b5000b;
+        box-shadow: 0 0 0 3px rgba(181, 0, 11, 0.1);
+      }
+      .role-btn {
+        transition: all 0.2s;
+      }
+      .role-btn.active {
+        border-color: #b5000b;
+        background: #fce4e4;
+        color: #b5000b;
+      }
+    </style>
+  </head>
+  <body class="bg-[#f8f9fb] min-h-screen flex">
+    <div
+      class="hidden lg:flex lg:w-1/2 bg-brand flex-col items-center justify-center p-12 relative overflow-hidden"
+    >
+      <div class="absolute inset-0 opacity-10">
+        <div
+          class="absolute -top-10 -right-10 w-64 h-64 border-4 border-white rounded-full"
+        ></div>
+        <div
+          class="absolute bottom-0 left-0 w-48 h-48 border-4 border-white rounded-full"
+        ></div>
+      </div>
+      <div class="relative z-10 text-white text-center">
+        <div class="text-7xl mb-8">🎉</div>
+        <h2 class="font-display text-4xl font-bold mb-4">
+          Gabung UMKMart<br />Sekarang!
+        </h2>
+        <p class="text-lg opacity-80 max-w-xs leading-relaxed">
+          Daftar gratis dan mulai jualan produk UMKM Anda ke lebih banyak
+          pelanggan.
+        </p>
+        <div class="mt-8 space-y-3">
+          <div
+            class="flex items-center gap-3 text-left bg-white/10 rounded-xl px-4 py-3"
+          >
+            <span class="text-2xl">📦</span>
+            <p class="text-sm font-medium">Kelola produk dengan mudah</p>
+          </div>
+          <div
+            class="flex items-center gap-3 text-left bg-white/10 rounded-xl px-4 py-3"
+          >
+            <span class="text-2xl">📊</span>
+            <p class="text-sm font-medium">Lihat statistik toko real-time</p>
+          </div>
+          <div
+            class="flex items-center gap-3 text-left bg-white/10 rounded-xl px-4 py-3"
+          >
+            <span class="text-2xl">💬</span>
+            <p class="text-sm font-medium">Terima pesanan via WhatsApp</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="w-full lg:w-1/2 flex items-center justify-center p-6 lg:p-12 overflow-y-auto"
+    >
+      <div class="w-full max-w-md form-card">
+        <a
+          href="login.html"
+          class="inline-flex items-center gap-2 text-muted hover:text-primary text-sm font-medium mb-8 transition-colors"
+        >
+          <i class="ti ti-arrow-left" style="font-size: 18px"></i>
+          Kembali ke Masuk
+        </a>
+        <div class="mb-8">
+          <a
+            href="index.html"
+            class="font-display text-3xl font-bold text-primary block mb-2"
+            >UMKMart</a
+          >
+          <h1 class="text-2xl font-bold text-charcoal">Buat akun baru</h1>
+          <p class="text-muted text-sm mt-1">
+            Sudah punya akun?
+            <a
+              href="login.html"
+              class="text-primary font-semibold hover:underline"
+              >Masuk di sini</a
+            >
+          </p>
+        </div>
+
+        <!-- Role toggle -->
+        <div class="grid grid-cols-2 gap-3 mb-6">
+          <button
+            class="role-btn active border-2 border-primary bg-[#fce4e4] text-primary rounded-xl py-3 text-sm font-bold"
+            onclick="setRole(this, 'pembeli')"
+          >
+            <span class="flex items-center justify-center gap-2"
+              ><i class="ti ti-shopping-cart"></i> Pembeli</span
+            >
+          </button>
+          <button
+            class="role-btn border-2 border-gray-200 rounded-xl py-3 text-sm font-medium text-muted hover:border-primary"
+            onclick="setRole(this, 'umkm')"
+          >
+            <span class="flex items-center justify-center gap-2"
+              ><i class="ti ti-building-store"></i> UMKM</span
+            >
+          </button>
+        </div>
+
+        <!-- Social -->
+        <div class="grid grid-cols-2 gap-3 mb-6">
+          <button
+            class="flex items-center justify-center gap-2 border border-gray-200 rounded-xl py-3 text-sm font-medium hover:border-gray-300 bg-white transition-all hover:-translate-y-0.5"
+          >
+            <svg class="w-5 h-5" viewBox="0 0 24 24">
+              <path
+                d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+                fill="#4285F4"
+              />
+              <path
+                d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+                fill="#34A853"
+              />
+              <path
+                d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
+                fill="#FBBC05"
+              />
+              <path
+                d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+                fill="#EA4335"
+              />
+            </svg>
+            Google
+          </button>
+          <button
+            class="flex items-center justify-center gap-2 border border-gray-200 rounded-xl py-3 text-sm font-medium hover:border-gray-300 bg-white transition-all hover:-translate-y-0.5"
+          >
+            <svg class="w-5 h-5" fill="#1877F2" viewBox="0 0 24 24">
+              <path
+                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+              />
+            </svg>
+            Facebook
+          </button>
+        </div>
+
+        <div class="flex items-center gap-4 mb-6">
+          <div class="flex-1 h-px bg-gray-200"></div>
+          <span class="text-muted text-xs font-medium"
+            >ATAU DAFTAR DENGAN EMAIL</span
+          >
+          <div class="flex-1 h-px bg-gray-200"></div>
+        </div>
+
+        <form onsubmit="handleRegister(event)" class="space-y-4">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-sm font-semibold text-charcoal mb-1.5"
+                >Nama Depan</label
+              >
+              <input
+                type="text"
+                class="input-field w-full px-4 py-3 border border-gray-200 rounded-xl text-sm bg-white outline-none"
+                placeholder="John"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-charcoal mb-1.5"
+                >Nama Belakang</label
+              >
+              <input
+                type="text"
+                class="input-field w-full px-4 py-3 border border-gray-200 rounded-xl text-sm bg-white outline-none"
+                placeholder="Doe"
+                required
+              />
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-charcoal mb-1.5"
+              >Email</label
+            >
+            <div class="relative">
+              <i
+                class="ti ti-mail absolute left-3.5 top-1/2 -translate-y-1/2 text-muted"
+                style="font-size: 18px"
+              ></i>
+              <input
+                type="email"
+                class="input-field w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl text-sm bg-white outline-none"
+                placeholder="email@anda.com"
+                required
+              />
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-charcoal mb-1.5"
+              >No. Telepon</label
+            >
+            <div class="relative">
+              <i
+                class="ti ti-phone absolute left-3.5 top-1/2 -translate-y-1/2 text-muted"
+                style="font-size: 18px"
+              ></i>
+              <input
+                type="tel"
+                class="input-field w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl text-sm bg-white outline-none"
+                placeholder="+62 812 3456 7890"
+              />
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-charcoal mb-1.5"
+              >Kata Sandi</label
+            >
+            <div class="relative">
+              <i
+                class="ti ti-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-muted"
+                style="font-size: 18px"
+              ></i>
+              <input
+                type="password"
+                id="pwd"
+                oninput="checkStrength(this.value)"
+                class="input-field w-full pl-10 pr-12 py-3 border border-gray-200 rounded-xl text-sm bg-white outline-none"
+                placeholder="Min. 8 karakter"
+                required
+              />
+              <button
+                type="button"
+                class="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted hover:text-charcoal"
+                onclick="togglePwd('pwd', 'pwd-icon')"
+              >
+                <i class="ti ti-eye" id="pwd-icon" style="font-size: 18px"></i>
+              </button>
+            </div>
+            <div class="mt-2 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+              <div
+                id="strength-bar"
+                class="strength-bar h-full rounded-full w-0 bg-red-400"
+              ></div>
+            </div>
+            <p id="strength-text" class="text-xs text-muted mt-1"></p>
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-charcoal mb-1.5"
+              >Konfirmasi Kata Sandi</label
+            >
+            <div class="relative">
+              <i
+                class="ti ti-key absolute left-3.5 top-1/2 -translate-y-1/2 text-muted"
+                style="font-size: 18px"
+              ></i>
+              <input
+                type="password"
+                id="cpwd"
+                class="input-field w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl text-sm bg-white outline-none"
+                placeholder="Ulangi password"
+                required
+              />
+            </div>
+          </div>
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              class="mt-0.5 rounded border-gray-300 text-primary"
+              required
+            />
+            <span class="text-sm text-muted leading-relaxed"
+              >Saya setuju dengan
+              <a href="#" class="text-primary font-semibold hover:underline"
+                >Syarat & Ketentuan</a
+              >
+              dan
+              <a href="#" class="text-primary font-semibold hover:underline"
+                >Kebijakan Privasi</a
+              ></span
+            >
+          </label>
+          <button
+            type="submit"
+            class="w-full bg-primary text-white py-3.5 rounded-xl font-bold text-base hover:brightness-90 transition-all active:scale-[.98] shadow-lg shadow-primary/25 mt-2"
+          >
+            Daftar Sekarang
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      let selectedRole = 'pembeli';
+      function setRole(btn, role) {
+        document.querySelectorAll('.role-btn').forEach((b) => {
+          b.classList.remove('active');
+          b.classList.add('border-gray-200');
+          b.classList.remove('bg-[#fce4e4]', 'text-primary');
+          b.classList.add('text-muted');
+        });
+        btn.classList.add('active');
+        btn.classList.remove('border-gray-200', 'text-muted');
+        btn.classList.add('bg-[#fce4e4]', 'text-primary', 'border-primary');
+        selectedRole = role;
+      }
+      function togglePwd(id, ic) {
+        const i = document.getElementById(id);
+        const ico = document.getElementById(ic);
+        if (i.type === 'password') {
+          i.type = 'text';
+          ico.textContent = 'visibility_off';
+        } else {
+          i.type = 'password';
+          ico.textContent = 'visibility';
+        }
+      }
+      function checkStrength(v) {
+        const bar = document.getElementById('strength-bar');
+        const txt = document.getElementById('strength-text');
+        let s = 0;
+        if (v.length >= 8) s++;
+        if (/[A-Z]/.test(v)) s++;
+        if (/[0-9]/.test(v)) s++;
+        if (/[^A-Za-z0-9]/.test(v)) s++;
+        const levels = [
+          { w: '0%', c: 'bg-red-400', t: '' },
+          { w: '25%', c: 'bg-red-400', t: 'Lemah' },
+          { w: '50%', c: 'bg-yellow-400', t: 'Cukup' },
+          { w: '75%', c: 'bg-blue-400', t: 'Baik' },
+          { w: '100%', c: 'bg-primary-500', t: 'Kuat' },
+        ];
+        const l = levels[s];
+        bar.style.width = l.w;
+        bar.className = `strength-bar h-full rounded-full ${l.c}`;
+        txt.textContent = l.t;
+      }
+      function handleRegister(e) {
+        e.preventDefault();
+        const btn = e.target.querySelector('button[type=submit]');
+        btn.textContent = 'Mendaftarkan...';
+        btn.disabled = true;
+        setTimeout(() => {
+          window.location.href =
+            selectedRole === 'umkm' ? 'dashboard.html' : 'index.html';
+        }, 1200);
+      }
+    </script>
+  </body>
+</html>

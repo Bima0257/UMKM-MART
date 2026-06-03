@@ -1,0 +1,866 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard – UMKMart</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+    />
+    <script src="products.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#b5000b',
+              'primary-container': '#e30613',
+              secondary: '#5e5e5e',
+              surface: '#f8f9fb',
+              'surface-variant': '#e1e2e4',
+              'surface-container-low': '#f3f4f6',
+              'surface-container': '#edeef0',
+              'surface-container-high': '#e7e8ea',
+              'surface-container-highest': '#e1e2e4',
+              'card-bg': '#ffffff',
+              outline: '#936e69',
+              'outline-variant': '#e9bcb6',
+              success: '#10b981',
+              error: '#ba1a1a',
+              charcoal: '#1a1a2e',
+              muted: '#6b7280',
+            },
+            fontFamily: { display: ['Playfair Display', 'serif'] },
+          },
+        },
+      };
+    </script>
+    <style>
+      * {
+        font-family: 'DM Sans', sans-serif;
+      }
+      .font-display {
+        font-family: 'Playfair Display', serif;
+      }
+      .ti {
+        font-size: 24px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #e5e7eb;
+        border-radius: 10px;
+      }
+      .sidebar-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        border-radius: 12px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.2s;
+      }
+      .sidebar-link:hover {
+        background: #fce4e4;
+        color: #b5000b;
+      }
+      .sidebar-link.active {
+        background: #b5000b;
+        color: #fff;
+      }
+      .sidebar-link.active i {
+        color: #fff;
+      }
+      .stat-card {
+        transition: all 0.3s;
+      }
+      .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(181, 0, 11, 0.1);
+      }
+      .sidebar-overlay {
+        transition: opacity 0.3s;
+      }
+      .sidebar-open .sidebar-overlay {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .sidebar-open .sidebar-panel {
+        transform: translateX(0);
+      }
+    </style>
+  </head>
+  <body class="bg-[#f8f9fb] text-charcoal">
+    <!-- Overlay for mobile sidebar -->
+    <div
+      id="sidebar-overlay"
+      class="sidebar-overlay fixed inset-0 bg-black/40 z-40 opacity-0 pointer-events-none md:hidden"
+      onclick="toggleSidebar()"
+    ></div>
+
+    <!-- Sidebar -->
+    <aside
+      id="sidebar"
+      class="sidebar-panel fixed top-0 left-0 h-full w-64 bg-white shadow-xl z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col"
+    >
+      <div
+        class="p-5 border-b border-gray-100 flex items-center justify-between"
+      >
+        <a href="index.html" class="font-display text-xl font-bold text-primary"
+          >UMKMart</a
+        >
+        <button
+          class="md:hidden w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200"
+          onclick="toggleSidebar()"
+        >
+          <i class="ti ti-x" style="font-size: 18px"></i>
+        </button>
+      </div>
+
+      <div class="p-3 border-b border-gray-100 flex items-center gap-3">
+        <div
+          class="w-10 h-10 rounded-full bg-[#fce4e4] flex items-center justify-center"
+        >
+          <i class="ti ti-user" style="font-size: 20px"></i>
+        </div>
+        <div>
+          <p class="text-sm font-bold">Sari Rasa</p>
+          <p class="text-[10px] text-muted">UMKM • Yogyakarta</p>
+        </div>
+      </div>
+
+      <nav class="flex-1 p-3 space-y-1 overflow-y-auto">
+        <a
+          href="javascript:void(0)"
+          class="sidebar-link active"
+          onclick="showPanel('dashboard')"
+        >
+          <i class="ti ti-dashboard"></i> Dashboard
+        </a>
+        <a href="add-product.html" class="sidebar-link">
+          <i class="ti ti-square-rounded-plus"></i> Tambah Produk
+        </a>
+        <a
+          href="javascript:void(0)"
+          class="sidebar-link"
+          onclick="showPanel('produk')"
+        >
+          <i class="ti ti-package"></i> Kelola Produk
+        </a>
+        <a
+          href="javascript:void(0)"
+          class="sidebar-link"
+          onclick="showPanel('pesanan')"
+        >
+          <i class="ti ti-file-invoice"></i> Pesanan
+        </a>
+        <a
+          href="javascript:void(0)"
+          class="sidebar-link"
+          onclick="showPanel('profil')"
+        >
+          <i class="ti ti-user"></i> Profil UMKM
+        </a>
+      </nav>
+
+      <div class="p-3 border-t border-gray-100">
+        <a href="login.html" class="sidebar-link text-red-500 hover:bg-red-50">
+          <i class="ti ti-logout"></i> Keluar
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="md:ml-64">
+      <!-- Top Bar -->
+      <header
+        class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm"
+      >
+        <div class="h-16 px-5 flex items-center justify-between gap-4">
+          <button
+            class="md:hidden p-2 rounded-lg hover:bg-gray-100"
+            onclick="toggleSidebar()"
+          >
+            <i class="ti ti-menu-2"></i>
+          </button>
+          <h1
+            class="font-display text-xl font-bold text-charcoal hidden md:block"
+          >
+            Dashboard
+          </h1>
+          <div class="flex items-center gap-3">
+            <div
+              class="hidden md:flex items-center bg-gray-50 rounded-full px-4 py-1.5 gap-2 border border-gray-200"
+            >
+              <i class="ti ti-search text-muted" style="font-size: 18px"></i>
+              <input
+                class="bg-transparent border-none outline-none text-sm w-36 placeholder-gray-400"
+                placeholder="Cari..."
+              />
+            </div>
+            <div class="relative">
+              <button
+                class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-[#fce4e4] transition-colors"
+              >
+                <i class="ti ti-bell"></i>
+              </button>
+              <span
+                class="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-red-500 text-white text-[8px] rounded-full flex items-center justify-center font-bold"
+                >3</span
+              >
+            </div>
+            <div
+              class="w-9 h-9 rounded-full bg-[#fce4e4] flex items-center justify-center"
+            >
+              <i class="ti ti-building-store" style="font-size: 20px"></i>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="p-5 pb-24 md:pb-10">
+        <!-- Panel: Dashboard -->
+        <div id="panel-dashboard">
+          <!-- Stats -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div class="stat-card bg-white rounded-2xl shadow-sm p-6">
+              <div class="flex items-center justify-between mb-3">
+                <div
+                  class="w-12 h-12 rounded-xl bg-[#fce4e4] flex items-center justify-center"
+                >
+                  <i class="ti ti-package text-primary"></i>
+                </div>
+                <span
+                  class="text-xs text-success font-semibold bg-primary-50 px-2 py-1 rounded-full"
+                  >+12%</span
+                >
+              </div>
+              <p class="text-3xl font-bold text-charcoal">12</p>
+              <p class="text-sm text-muted mt-1">Total Produk</p>
+            </div>
+            <div class="stat-card bg-white rounded-2xl shadow-sm p-6">
+              <div class="flex items-center justify-between mb-3">
+                <div
+                  class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center"
+                >
+                  <i class="ti ti-eye text-blue-600"></i>
+                </div>
+                <span
+                  class="text-xs text-success font-semibold bg-primary-50 px-2 py-1 rounded-full"
+                  >+8%</span
+                >
+              </div>
+              <p class="text-3xl font-bold text-charcoal">1.240</p>
+              <p class="text-sm text-muted mt-1">Total Kunjungan</p>
+            </div>
+            <div class="stat-card bg-white rounded-2xl shadow-sm p-6">
+              <div class="flex items-center justify-between mb-3">
+                <div
+                  class="w-12 h-12 rounded-xl bg-amber-50 flex items-center justify-center"
+                >
+                  <i class="ti ti-file-invoice text-amber-600"></i>
+                </div>
+                <span
+                  class="text-xs text-success font-semibold bg-primary-50 px-2 py-1 rounded-full"
+                  >+5%</span
+                >
+              </div>
+              <p class="text-3xl font-bold text-charcoal">48</p>
+              <p class="text-sm text-muted mt-1">Total Pesanan</p>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="mb-8">
+            <a
+              href="add-product.html"
+              class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-full text-sm font-bold hover:brightness-90 transition-all active:scale-95 shadow-lg shadow-primary/25"
+            >
+              <i class="ti ti-plus"></i> Tambah Produk Baru
+            </a>
+          </div>
+
+          <!-- Product Table -->
+          <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+            <div
+              class="p-5 border-b border-gray-100 flex items-center justify-between"
+            >
+              <h2 class="font-bold text-lg">Produk Saya</h2>
+              <div class="flex items-center gap-2">
+                <select
+                  class="border border-gray-200 rounded-lg px-3 py-1.5 text-xs bg-white outline-none focus:border-primary"
+                >
+                  <option>Semua Kategori</option>
+                  <option>Kuliner</option>
+                  <option>Fashion</option>
+                  <option>Kerajinan</option>
+                </select>
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr
+                    class="bg-gray-50 text-muted text-xs font-semibold uppercase tracking-wider"
+                  >
+                    <th class="text-left px-5 py-3">Produk</th>
+                    <th class="text-left px-5 py-3 hidden md:table-cell">
+                      Kategori
+                    </th>
+                    <th class="text-left px-5 py-3">Harga</th>
+                    <th class="text-left px-5 py-3 hidden md:table-cell">
+                      Terjual
+                    </th>
+                    <th class="text-left px-5 py-3 hidden md:table-cell">
+                      Status
+                    </th>
+                    <th class="text-right px-5 py-3">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                  <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-5 py-4">
+                      <div class="flex items-center gap-3">
+                        <div
+                          class="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100"
+                        >
+                          <img
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvDM4b6Kklx17DQyxH83AhBVadEvZgJKeL0XMPYx1ZUMA0cmgF7dH-_rC6FgUFvVlVG06nvuOe0qjlR03RfRQjvxcigTUdi0wRMdwKCUkpLp-yq9khGiOCpeANZg54pDB5sW7ljeh0YjRS3w73wKKHUUTKieJuZH0vCTXuQDjLQvYM2mJsQUkv6vUAz5C6Qph08YRZU6b6-G7hQ0SvwG8cvtJm8MVbuVlDZnKXm2X9kIukAK8TAaG94CH7L82-Ij6rjQbqFbSq"
+                            class="w-full h-full object-cover"
+                            alt=""
+                          />
+                        </div>
+                        <div>
+                          <p class="font-semibold text-sm">Abon Sapi Pedas</p>
+                          <p class="text-[10px] text-muted md:hidden">
+                            Kuliner • 230 terjual
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="px-5 py-4 hidden md:table-cell">
+                      <span
+                        class="bg-[#fce4e4] text-primary text-xs font-bold px-2.5 py-1 rounded-full"
+                        >Kuliner</span
+                      >
+                    </td>
+                    <td class="px-5 py-4 font-semibold">Rp35.000</td>
+                    <td class="px-5 py-4 hidden md:table-cell">230</td>
+                    <td class="px-5 py-4 hidden md:table-cell">
+                      <span
+                        class="bg-success/10 text-success text-xs font-bold px-2.5 py-1 rounded-full"
+                        >Aktif</span
+                      >
+                    </td>
+                    <td class="px-5 py-4 text-right">
+                      <div class="flex items-center justify-end gap-2">
+                        <button
+                          class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center hover:bg-blue-100 transition-colors"
+                        >
+                          <i
+                            class="ti ti-edit text-blue-600"
+                            style="font-size: 16px"
+                          ></i>
+                        </button>
+                        <button
+                          class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center hover:bg-red-100 transition-colors"
+                        >
+                          <i
+                            class="ti ti-trash text-red-600"
+                            style="font-size: 16px"
+                          ></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="px-5 py-4">
+                      <div class="flex items-center gap-3">
+                        <div
+                          class="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100"
+                        >
+                          <img
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOgJiq2PRRcTmbVIwfZHSYrakdzzQSgMaQKNCCyi4zzPgR4yiKVzDNvrgz_3aPMH_m0xEOk6Y8MGZDW5r_QLxY984OA85WKmnfHIW36B4k3RR3JkmAVEnvQ2ZOoAQDgBLd1OiAnvLyxTd9q0OkSQE_yss-GupK4egTEcIAJYymKurPZwOUcvBkcYP7w3tjjCeHLl8HwuQlrOwCm_B5OYZ5pY5s5CHrHq-gDlw7xbrWq2D6J74H33zPqexQuVyrwdz03ytZ_yWC"
+                            class="w-full h-full object-cover"
+                            alt=""
+                          />
+                        </div>
+                        <div>
+                          <p class="font-semibold text-sm">Dendeng Sapi</p>
+                          <p class="text-[10px] text-muted md:hidden">
+                            Kuliner • 185 terjual
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                    <td class="px-5 py-4 hidden md:table-cell">
+                      <span
+                        class="bg-[#fce4e4] text-primary text-xs font-bold px-2.5 py-1 rounded-full"
+                        >Kuliner</span
+                      >
+                    </td>
+                    <td class="px-5 py-4 font-semibold">Rp45.000</td>
+                    <td class="px-5 py-4 hidden md:table-cell">185</td>
+                    <td class="px-5 py-4 hidden md:table-cell">
+                      <span
+                        class="bg-success/10 text-success text-xs font-bold px-2.5 py-1 rounded-full"
+                        >Aktif</span
+                      >
+                    </td>
+                    <td class="px-5 py-4 text-right">
+                      <div class="flex items-center justify-end gap-2">
+                        <button
+                          class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center hover:bg-blue-100 transition-colors"
+                        >
+                          <i
+                            class="ti ti-edit text-blue-600"
+                            style="font-size: 16px"
+                          ></i>
+                        </button>
+                        <button
+                          class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center hover:bg-red-100 transition-colors"
+                        >
+                          <i
+                            class="ti ti-trash text-red-600"
+                            style="font-size: 16px"
+                          ></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel: Produk -->
+        <div id="panel-produk" class="hidden">
+          <div class="bg-white rounded-2xl shadow-sm">
+            <div
+              class="p-5 border-b border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-3"
+            >
+              <h2 class="font-bold text-lg">Semua Produk Kuliner</h2>
+              <div class="flex items-center gap-2">
+                <div class="relative flex-1 md:flex-initial">
+                  <i
+                    class="ti ti-search absolute left-3 top-1/2 -translate-y-1/2 text-muted"
+                    style="font-size: 16px"
+                  ></i>
+                  <input
+                    type="text"
+                    id="produk-search"
+                    class="border border-gray-200 rounded-lg pl-9 pr-3 py-1.5 text-xs bg-white outline-none focus:border-primary w-full md:w-48"
+                    placeholder="Cari produk..."
+                    oninput="renderProductTable()"
+                  />
+                </div>
+                <select
+                  id="produk-category-filter"
+                  class="border border-gray-200 rounded-lg px-3 py-1.5 text-xs bg-white outline-none focus:border-primary"
+                  onchange="renderProductTable()"
+                >
+                  <option value="all">Semua Kategori</option>
+                  <option value="Kuliner">Kuliner</option>
+                  <option value="Fashion">Fashion</option>
+                  <option value="Kerajinan">Kerajinan</option>
+                  <option value="Pertanian">Pertanian</option>
+                  <option value="Jasa">Jasa</option>
+                  <option value="Kosmetik">Kosmetik</option>
+                </select>
+              </div>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr
+                    class="bg-gray-50 text-muted text-xs font-semibold uppercase tracking-wider"
+                  >
+                    <th class="text-left px-5 py-3">Produk</th>
+                    <th class="text-left px-5 py-3 hidden md:table-cell">
+                      Kategori
+                    </th>
+                    <th class="text-left px-5 py-3">Harga</th>
+                    <th class="text-left px-5 py-3 hidden md:table-cell">
+                      Terjual
+                    </th>
+                    <th class="text-left px-5 py-3 hidden md:table-cell">
+                      Status
+                    </th>
+                    <th class="text-right px-5 py-3">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody
+                  id="produk-table-body"
+                  class="divide-y divide-gray-100"
+                ></tbody>
+              </table>
+            </div>
+            <div
+              class="p-5 border-t border-gray-100 flex items-center justify-between"
+            >
+              <p class="text-xs text-muted" id="produk-table-info">
+                Menampilkan 0 produk
+              </p>
+              <div class="flex items-center gap-2" id="produk-pagination"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel: Pesanan -->
+        <div id="panel-pesanan" class="hidden">
+          <div class="bg-white rounded-2xl shadow-sm">
+            <div class="p-5 border-b border-gray-100">
+              <h2 class="font-bold text-lg">Daftar Pesanan</h2>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr
+                    class="bg-gray-50 text-muted text-xs font-semibold uppercase tracking-wider"
+                  >
+                    <th class="text-left px-5 py-3">Order ID</th>
+                    <th class="text-left px-5 py-3">Pelanggan</th>
+                    <th class="text-left px-5 py-3 hidden md:table-cell">
+                      Produk
+                    </th>
+                    <th class="text-left px-5 py-3 hidden md:table-cell">
+                      Tanggal
+                    </th>
+                    <th class="text-left px-5 py-3">Status</th>
+                    <th class="text-right px-5 py-3">Total</th>
+                  </tr>
+                </thead>
+                <tbody
+                  id="pesanan-table-body"
+                  class="divide-y divide-gray-100"
+                ></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Panel: Profil -->
+        <div id="panel-profil" class="hidden">
+          <div class="bg-white rounded-2xl shadow-sm p-6">
+            <h2 class="font-bold text-lg mb-6">Profil UMKM</h2>
+            <form class="space-y-5 max-w-xl">
+              <div>
+                <label class="block text-sm font-semibold mb-1.5"
+                  >Nama Toko</label
+                >
+                <input
+                  type="text"
+                  value="Sari Rasa"
+                  class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm bg-white outline-none focus:border-primary transition-colors"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-1.5"
+                  >Nama Pemilik</label
+                >
+                <input
+                  type="text"
+                  value="Sari Andini"
+                  class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm bg-white outline-none focus:border-primary transition-colors"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-1.5"
+                  >No. WhatsApp</label
+                >
+                <input
+                  type="text"
+                  value="6281234567890"
+                  class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm bg-white outline-none focus:border-primary transition-colors"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-1.5">Email</label>
+                <input
+                  type="email"
+                  value="sari.rasa@email.com"
+                  class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm bg-white outline-none focus:border-primary transition-colors"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-1.5">Alamat</label>
+                <input
+                  type="text"
+                  value="Jl. Kaliurang KM 7, Sleman, Yogyakarta"
+                  class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm bg-white outline-none focus:border-primary transition-colors"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-1.5"
+                  >Deskripsi Usaha</label
+                >
+                <textarea
+                  rows="4"
+                  class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm bg-white outline-none focus:border-primary transition-colors"
+                >
+UMKM yang bergerak di bidang kuliner tradisional Yogyakarta. Menyediakan berbagai oleh-oleh khas seperti abon, dendeng, dan camilan tradisional lainnya.</textarea
+                >
+              </div>
+              <div>
+                <label class="block text-sm font-semibold mb-1.5"
+                  >Foto Toko</label
+                >
+                <div
+                  class="border-2 border-dashed border-gray-200 rounded-xl p-6 text-center hover:border-primary transition-colors cursor-pointer"
+                >
+                  <i class="ti ti-photo text-muted" style="font-size: 32px"></i>
+                  <p class="text-xs text-muted mt-2">
+                    Klik atau seret foto di sini
+                  </p>
+                  <input type="file" class="hidden" accept="image/*" />
+                </div>
+              </div>
+              <button
+                type="button"
+                class="bg-primary text-white px-8 py-3 rounded-full text-sm font-bold hover:brightness-90 transition-all active:scale-95 shadow-lg shadow-primary/25"
+              >
+                Simpan Profil
+              </button>
+            </form>
+          </div>
+        </div>
+      </main>
+
+      <!-- Mobile bottom nav -->
+      <nav
+        class="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-100 flex justify-around py-3 z-30"
+        style="box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08)"
+      >
+        <a
+          href="index.html"
+          class="flex flex-col items-center gap-0.5 text-muted"
+          ><i class="ti ti-building-store"></i
+          ><span class="text-[10px]">Beranda</span></a
+        >
+        <a
+          href="catalog.html"
+          class="flex flex-col items-center gap-0.5 text-muted"
+          ><i class="ti ti-layout-grid"></i
+          ><span class="text-[10px]">Katalog</span></a
+        >
+        <a
+          href="dashboard.html"
+          class="flex flex-col items-center gap-0.5 text-primary"
+          ><i class="ti ti-dashboard"></i
+          ><span class="text-[10px] font-bold">Dashboard</span></a
+        >
+        <a
+          href="add-product.html"
+          class="flex flex-col items-center gap-0.5 text-muted"
+          ><i class="ti ti-square-rounded-plus"></i
+          ><span class="text-[10px]">Tambah</span></a
+        >
+        <a
+          href="login.html"
+          class="flex flex-col items-center gap-0.5 text-muted"
+          ><i class="ti ti-user"></i><span class="text-[10px]">Akun</span></a
+        >
+      </nav>
+    </div>
+
+    <script>
+      function toggleSidebar() {
+        document
+          .getElementById('sidebar')
+          .classList.toggle('-translate-x-full');
+        document
+          .getElementById('sidebar-overlay')
+          .classList.toggle('opacity-0');
+        document
+          .getElementById('sidebar-overlay')
+          .classList.toggle('pointer-events-none');
+      }
+
+      const orders = [
+        {
+          id: 'INV-001',
+          customer: 'Budi Santoso',
+          product: 'Abon Sapi Pedas',
+          date: '02 Jun 2026',
+          status: 'Selesai',
+          total: 35000,
+        },
+        {
+          id: 'INV-002',
+          customer: 'Siti Nurhaliza',
+          product: 'Batik Tulis Solo',
+          date: '01 Jun 2026',
+          status: 'Diproses',
+          total: 150000,
+        },
+        {
+          id: 'INV-003',
+          customer: 'Ahmad Rizki',
+          product: 'Madu Murni',
+          date: '30 Mei 2026',
+          status: 'Dikirim',
+          total: 85000,
+        },
+        {
+          id: 'INV-004',
+          customer: 'Dewi Lestari',
+          product: 'Keripik Singkong',
+          date: '28 Mei 2026',
+          status: 'Selesai',
+          total: 12000,
+        },
+        {
+          id: 'INV-005',
+          customer: 'Rudi Hartono',
+          product: 'Tenun Ikat',
+          date: '25 Mei 2026',
+          status: 'Dibatalkan',
+          total: 250000,
+        },
+      ];
+
+      const statusColors = {
+        Selesai: 'bg-primary-100 text-green-700',
+        Diproses: 'bg-yellow-100 text-yellow-700',
+        Dikirim: 'bg-blue-100 text-blue-700',
+        Dibatalkan: 'bg-red-100 text-red-700',
+      };
+
+      let produkPage = 1;
+      const perPage = 10;
+
+      function renderProductTable() {
+        const tbody = document.getElementById('produk-table-body');
+        if (!tbody) return;
+        const search = (
+          document.getElementById('produk-search')?.value || ''
+        ).toLowerCase();
+        const catFilter =
+          document.getElementById('produk-category-filter')?.value || 'all';
+
+        let filtered = allProducts.filter((p) => {
+          const matchCat = catFilter === 'all' || p.category === catFilter;
+          const matchSearch =
+            p.name.toLowerCase().includes(search) ||
+            p.category.toLowerCase().includes(search);
+          return matchCat && matchSearch;
+        });
+
+        const totalPages = Math.ceil(filtered.length / perPage) || 1;
+        if (produkPage > totalPages) produkPage = totalPages;
+        const start = (produkPage - 1) * perPage;
+        const pageItems = filtered.slice(start, start + perPage);
+
+        tbody.innerHTML = pageItems
+          .map(
+            (p) => `
+        <tr class="hover:bg-gray-50 transition-colors">
+          <td class="px-5 py-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg overflow-hidden flex-shrink-0 bg-gray-100">
+                <img src="${getProductImage(p, 80)}" class="w-full h-full object-cover" alt="${p.name}" />
+              </div>
+              <div>
+                <p class="font-semibold text-sm">${p.name}</p>
+                <p class="text-[10px] text-muted md:hidden">${p.category} • ${p.sold} terjual</p>
+              </div>
+            </div>
+          </td>
+          <td class="px-5 py-4 hidden md:table-cell"><span class="bg-[#fce4e4] text-primary text-xs font-bold px-2.5 py-1 rounded-full">${p.category}</span></td>
+          <td class="px-5 py-4 font-semibold">Rp${p.price.toLocaleString('id-ID')}</td>
+          <td class="px-5 py-4 hidden md:table-cell">${p.sold}</td>
+          <td class="px-5 py-4 hidden md:table-cell"><span class="bg-success/10 text-success text-xs font-bold px-2.5 py-1 rounded-full">Aktif</span></td>
+          <td class="px-5 py-4 text-right">
+            <div class="flex items-center justify-end gap-2">
+              <button class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center hover:bg-blue-100"><i class="ti ti-edit text-blue-600" style="font-size:16px"></i></button>
+              <button class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center hover:bg-red-100"><i class="ti ti-trash text-red-600" style="font-size:16px"></i></button>
+            </div>
+          </td>
+        </tr>
+      `,
+          )
+          .join('');
+
+        document.getElementById('produk-table-info').textContent =
+          `Menampilkan ${start + 1}-${Math.min(start + perPage, filtered.length)} dari ${filtered.length} produk`;
+
+        const pagination = document.getElementById('produk-pagination');
+        pagination.innerHTML = '';
+        for (let i = 1; i <= totalPages; i++) {
+          const btn = document.createElement('button');
+          btn.textContent = i;
+          btn.className = `w-8 h-8 rounded-lg text-xs font-bold transition-colors ${i === produkPage ? 'bg-primary text-white' : 'bg-gray-100 text-muted hover:bg-gray-200'}`;
+          btn.onclick = () => {
+            produkPage = i;
+            renderProductTable();
+          };
+          pagination.appendChild(btn);
+        }
+      }
+
+      function renderOrders() {
+        const tbody = document.getElementById('pesanan-table-body');
+        if (!tbody) return;
+        tbody.innerHTML = orders
+          .map(
+            (o) => `
+        <tr class="hover:bg-gray-50 transition-colors">
+          <td class="px-5 py-4 font-semibold text-xs">${o.id}</td>
+          <td class="px-5 py-4">${o.customer}</td>
+          <td class="px-5 py-4 hidden md:table-cell">${o.product}</td>
+          <td class="px-5 py-4 hidden md:table-cell text-muted">${o.date}</td>
+          <td class="px-5 py-4"><span class="text-xs font-bold px-2.5 py-1 rounded-full ${statusColors[o.status] || 'bg-gray-100 text-gray-700'}">${o.status}</span></td>
+          <td class="px-5 py-4 text-right font-semibold">Rp${o.total.toLocaleString('id-ID')}</td>
+        </tr>
+      `,
+          )
+          .join('');
+      }
+
+      function showPanel(panel) {
+        document
+          .querySelectorAll('[id^="panel-"]')
+          .forEach((p) => p.classList.add('hidden'));
+        document.getElementById('panel-dashboard')?.classList.remove('hidden');
+
+        if (panel !== 'dashboard') {
+          document.getElementById('panel-dashboard').classList.add('hidden');
+          document.getElementById('panel-' + panel).classList.remove('hidden');
+        }
+
+        document
+          .querySelectorAll('.sidebar-link')
+          .forEach((l) => l.classList.remove('active'));
+        const links = { dashboard: 0, produk: 2, pesanan: 3, profil: 4 };
+        document
+          .querySelectorAll('.sidebar-link')
+          [links[panel]]?.classList.add('active');
+
+        const titles = {
+          dashboard: 'Dashboard',
+          produk: 'Kelola Produk',
+          pesanan: 'Pesanan',
+          profil: 'Profil UMKM',
+        };
+        document.querySelector('header h1').textContent = titles[panel];
+
+        if (panel === 'produk') {
+          produkPage = 1;
+          renderProductTable();
+        }
+        if (panel === 'pesanan') renderOrders();
+      }
+    </script>
+  </body>
+</html>

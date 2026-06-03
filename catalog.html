@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Katalog Produk – UMKMart</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#b5000b',
+              'primary-container': '#e30613',
+              secondary: '#5e5e5e',
+              surface: '#f8f9fb',
+              'surface-variant': '#e1e2e4',
+              'surface-container-low': '#f3f4f6',
+              'surface-container': '#edeef0',
+              'surface-container-high': '#e7e8ea',
+              'surface-container-highest': '#e1e2e4',
+              'card-bg': '#ffffff',
+              outline: '#936e69',
+              'outline-variant': '#e9bcb6',
+              success: '#10b981',
+              error: '#ba1a1a',
+              charcoal: '#1a1a2e',
+              muted: '#6b7280',
+            },
+            fontFamily: { display: ['Playfair Display', 'serif'] },
+          },
+        },
+      };
+    </script>
+    <script src="products.js"></script>
+    <style>
+      * {
+        font-family: 'DM Sans', sans-serif;
+      }
+      .font-display {
+        font-family: 'Playfair Display', serif;
+      }
+      .ti {
+        font-size: 24px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #e5e7eb;
+        border-radius: 10px;
+      }
+      .prod-card img {
+        transition: transform 0.4s ease;
+      }
+      .prod-card:hover img {
+        transform: scale(1.08);
+      }
+      .card-hover {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .card-hover:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 40px rgba(181, 0, 11, 0.12);
+      }
+      .filter-chip {
+        transition: all 0.2s;
+      }
+      .filter-chip.active,
+      .filter-chip:hover {
+        background: #b5000b;
+        color: #fff;
+        border-color: #b5000b;
+      }
+    </style>
+  </head>
+  <body class="bg-[#f8f9fb] text-charcoal">
+    <header
+      class="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm"
+    >
+      <div
+        class="max-w-7xl mx-auto px-5 h-16 flex items-center justify-between gap-6"
+      >
+        <a
+          href="index.html"
+          class="font-display text-2xl font-bold text-primary tracking-tight"
+          >UMKMart</a
+        >
+        <nav class="hidden md:flex items-center gap-7">
+          <a
+            href="index.html"
+            class="text-sm font-medium text-muted hover:text-primary transition-colors"
+            >Beranda</a
+          >
+          <a
+            href="catalog.html"
+            class="text-sm font-semibold text-primary border-b-2 border-primary pb-0.5"
+            >Katalog</a
+          >
+          <a
+            href="umkm-list.html"
+            class="text-sm font-medium text-muted hover:text-primary transition-colors"
+            >UMKM</a
+          >
+          <a
+            href="contact.html"
+            class="text-sm font-medium text-muted hover:text-primary transition-colors"
+            >Kontak</a
+          >
+        </nav>
+        <div class="flex items-center gap-3">
+          <div
+            class="hidden md:flex items-center bg-gray-50 rounded-full px-4 py-2 gap-2 border border-gray-200"
+          >
+            <i class="ti ti-search text-muted" style="font-size: 18px"></i>
+            <input
+              id="search-input"
+              class="bg-transparent border-none outline-none text-sm w-40 placeholder-gray-400 focus:outline-none focus:ring-0 focus:border-transparent focus:outline-none focus:ring-0 focus:border-transparent"
+              placeholder="Cari produk..."
+              oninput="renderProducts()"
+            />
+          </div>
+          <a
+            href="login.html"
+            class="hidden md:flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-full text-sm font-semibold hover:brightness-90 transition-colors shadow-md shadow-primary/25"
+          >
+            <i class="ti ti-user" style="font-size: 16px"></i> Masuk
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="pt-16 pb-24 md:pb-12">
+      <div
+        class="bg-gradient-to-r from-primary to-primary-container py-10 px-5"
+      >
+        <div class="max-w-7xl mx-auto">
+          <nav class="flex items-center gap-2 text-white/70 text-sm mb-4">
+            <a href="index.html" class="hover:text-white">Beranda</a>
+            <i class="ti ti-chevron-right" style="font-size: 16px"></i>
+            <span class="text-white font-semibold">Katalog Produk</span>
+          </nav>
+          <h1
+            class="font-display text-3xl md:text-4xl font-bold text-white mb-2"
+          >
+            Katalog Produk UMKM
+          </h1>
+          <p class="text-white/80 text-sm">
+            Temukan produk terbaik dari UMKM Indonesia
+          </p>
+        </div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-5 py-8">
+        <!-- Category filter chips -->
+        <div
+          id="category-chips"
+          class="flex items-center gap-3 overflow-x-auto pb-3 mb-6"
+          style="scrollbar-width: none"
+        >
+          <button
+            class="filter-chip active flex-shrink-0 border border-gray-200 px-5 py-2 rounded-full text-sm font-semibold text-charcoal"
+            data-category="all"
+            onclick="setCategory('all')"
+          >
+            Semua
+          </button>
+          <button
+            class="filter-chip flex-shrink-0 border border-gray-200 px-5 py-2 rounded-full text-sm font-medium text-charcoal bg-white"
+            data-category="Kuliner"
+            onclick="setCategory('Kuliner')"
+          >
+            <i class="ti ti-building-store" style="font-size: 14px"></i> Kuliner
+          </button>
+          <button
+            class="filter-chip flex-shrink-0 border border-gray-200 px-5 py-2 rounded-full text-sm font-medium text-charcoal bg-white"
+            data-category="Fashion"
+            onclick="setCategory('Fashion')"
+          >
+            <i class="ti ti-shirt" style="font-size: 14px"></i> Fashion
+          </button>
+          <button
+            class="filter-chip flex-shrink-0 border border-gray-200 px-5 py-2 rounded-full text-sm font-medium text-charcoal bg-white"
+            data-category="Kerajinan"
+            onclick="setCategory('Kerajinan')"
+          >
+            <i class="ti ti-brush" style="font-size: 14px"></i> Kerajinan
+          </button>
+          <button
+            class="filter-chip flex-shrink-0 border border-gray-200 px-5 py-2 rounded-full text-sm font-medium text-charcoal bg-white"
+            data-category="Pertanian"
+            onclick="setCategory('Pertanian')"
+          >
+            <i class="ti ti-seedling" style="font-size: 14px"></i> Pertanian
+          </button>
+          <button
+            class="filter-chip flex-shrink-0 border border-gray-200 px-5 py-2 rounded-full text-sm font-medium text-charcoal bg-white"
+            data-category="Jasa"
+            onclick="setCategory('Jasa')"
+          >
+            <i class="ti ti-wrench" style="font-size: 14px"></i> Jasa
+          </button>
+          <button
+            class="filter-chip flex-shrink-0 border border-gray-200 px-5 py-2 rounded-full text-sm font-medium text-charcoal bg-white"
+            data-category="Kosmetik"
+            onclick="setCategory('Kosmetik')"
+          >
+            <i class="ti ti-sparkles" style="font-size: 14px"></i> Kosmetik
+          </button>
+        </div>
+
+        <!-- Filters Row -->
+        <div class="flex items-center justify-between mb-6 gap-4 flex-wrap">
+          <div class="flex items-center gap-2 flex-wrap">
+            <button
+              class="flex items-center gap-2 border border-gray-200 bg-white px-4 py-2 rounded-xl text-sm font-medium hover:border-primary transition-colors"
+            >
+              <i class="ti ti-adjustments" style="font-size: 16px"></i>
+              Filter
+            </button>
+            <select
+              id="price-filter"
+              class="border border-gray-200 rounded-xl px-3 py-2 text-sm bg-white outline-none focus:border-primary"
+              onchange="renderProducts()"
+            >
+              <option value="all">Semua Harga</option>
+              <option value="0-50000">Di bawah Rp50rb</option>
+              <option value="50000-100000">Rp50rb – Rp100rb</option>
+              <option value="100000-250000">Rp100rb – Rp250rb</option>
+              <option value="250000-999999999">Di atas Rp250rb</option>
+            </select>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-muted text-sm">Urutkan:</span>
+            <select
+              id="sort-select"
+              class="border border-gray-200 rounded-xl px-3 py-2 text-sm bg-white outline-none focus:border-primary"
+              onchange="renderProducts()"
+            >
+              <option value="terbaru">Terbaru</option>
+              <option value="termurah">Termurah</option>
+              <option value="termahal">Termahal</option>
+              <option value="terlaris">Terlaris</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div
+          id="product-grid"
+          class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5"
+        ></div>
+
+        <!-- Pagination -->
+        <div
+          id="pagination"
+          class="flex items-center justify-center gap-2 mt-10"
+        ></div>
+      </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-100 pt-10 pb-24 md:pb-10 px-5">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <a
+            href="index.html"
+            class="font-display text-2xl font-bold text-primary block mb-3"
+            >UMKMart</a
+          >
+          <p class="text-sm text-muted leading-relaxed">
+            Platform digital untuk mendukung dan memasarkan produk UMKM
+            Indonesia.
+          </p>
+          <div class="flex items-center gap-3 mt-4">
+            <a
+              href="#"
+              class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-primary hover:text-white transition-all text-muted"
+              ><i class="ti ti-brand-instagram" style="font-size: 18px"></i
+            ></a>
+            <a
+              href="#"
+              class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-primary hover:text-white transition-all text-muted"
+              ><i class="ti ti-brand-tiktok" style="font-size: 18px"></i
+            ></a>
+            <a
+              href="#"
+              class="w-9 h-9 rounded-full bg-gray-100 flex items-center justify-center hover:bg-primary hover:text-white transition-all text-muted"
+              ><i class="ti ti-mail" style="font-size: 18px"></i
+            ></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm mb-4">Navigasi</h4>
+          <ul class="space-y-2 text-sm text-muted">
+            <li><a href="index.html" class="hover:text-primary">Beranda</a></li>
+            <li>
+              <a href="catalog.html" class="hover:text-primary"
+                >Katalog Produk</a
+              >
+            </li>
+            <li>
+              <a href="umkm-list.html" class="hover:text-primary"
+                >Daftar UMKM</a
+              >
+            </li>
+            <li>
+              <a href="contact.html" class="hover:text-primary">Kontak</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm mb-4">Kategori</h4>
+          <ul class="space-y-2 text-sm text-muted">
+            <li>
+              <a href="catalog.html?cat=kuliner" class="hover:text-primary"
+                >Kuliner</a
+              >
+            </li>
+            <li>
+              <a href="catalog.html?cat=fashion" class="hover:text-primary"
+                >Fashion</a
+              >
+            </li>
+            <li>
+              <a href="catalog.html?cat=kerajinan" class="hover:text-primary"
+                >Kerajinan</a
+              >
+            </li>
+            <li>
+              <a href="catalog.html?cat=pertanian" class="hover:text-primary"
+                >Pertanian</a
+              >
+            </li>
+            <li>
+              <a href="catalog.html?cat=jasa" class="hover:text-primary"
+                >Jasa</a
+              >
+            </li>
+            <li>
+              <a href="catalog.html?cat=kosmetik" class="hover:text-primary"
+                >Kosmetik</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm mb-4">Kontak</h4>
+          <ul class="space-y-2 text-sm text-muted">
+            <li class="flex items-center gap-2">
+              <i class="ti ti-map-pin" style="font-size: 16px"></i> Yogyakarta,
+              Indonesia
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="ti ti-mail" style="font-size: 16px"></i>
+              hello@umkmart.id
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="ti ti-phone-call" style="font-size: 16px"></i> +62 812
+              3456 7890
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        class="border-t border-gray-100 mt-8 pt-6 text-center text-xs text-muted"
+      >
+        &copy; 2026 UMKMart. All rights reserved. Bangga Buatan Indonesia.
+      </div>
+    </footer>
+
+    <nav
+      class="md:hidden fixed bottom-0 left-0 w-full bg-white bottom-nav flex justify-around py-3 z-50"
+      style="box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08)"
+    >
+      <a href="index.html" class="flex flex-col items-center gap-0.5 text-muted"
+        ><i class="ti ti-building-store"></i
+        ><span class="text-[10px]">Beranda</span></a
+      >
+      <a
+        href="catalog.html"
+        class="flex flex-col items-center gap-0.5 text-primary"
+        ><i class="ti ti-layout-grid"></i
+        ><span class="text-[10px] font-bold">Katalog</span></a
+      >
+      <a
+        href="umkm-list.html"
+        class="flex flex-col items-center gap-0.5 text-muted"
+        ><i class="ti ti-users"></i><span class="text-[10px]">UMKM</span></a
+      >
+      <a
+        href="contact.html"
+        class="flex flex-col items-center gap-0.5 text-muted"
+        ><i class="ti ti-mail"></i><span class="text-[10px]">Kontak</span></a
+      >
+      <a href="login.html" class="flex flex-col items-center gap-0.5 text-muted"
+        ><i class="ti ti-user"></i><span class="text-[10px]">Akun</span></a
+      >
+    </nav>
+    <div class="md:hidden h-20"></div>
+
+    <script>
+      const PER_PAGE = 8;
+      let currentPage = 1;
+      let activeCategory = 'all';
+
+      const gradientMap = {
+        Fashion: 'from-yellow-50 to-amber-100',
+        Kuliner: 'from-red-50 to-pink-100',
+        Kerajinan: 'from-amber-50 to-orange-100',
+        Pertanian: 'from-green-50 to-emerald-100',
+        Jasa: 'from-blue-50 to-cyan-100',
+        Kosmetik: 'from-pink-50 to-rose-100',
+      };
+      const iconMap = {
+        Kuliner: 'building-store',
+        Fashion: 'shirt',
+        Kerajinan: 'brush',
+        Pertanian: 'seedling',
+        Jasa: 'wrench',
+        Kosmetik: 'sparkles',
+      };
+
+      function renderProducts() {
+        const grid = document.getElementById('product-grid');
+        const pagination = document.getElementById('pagination');
+        const query = document
+          .getElementById('search-input')
+          .value.toLowerCase()
+          .trim();
+
+        let filtered = allProducts.filter((p) => {
+          if (activeCategory !== 'all' && p.category !== activeCategory)
+            return false;
+          if (
+            query &&
+            !p.name.toLowerCase().includes(query) &&
+            !p.umkm.toLowerCase().includes(query) &&
+            !p.category.toLowerCase().includes(query)
+          )
+            return false;
+          return true;
+        });
+
+        // Price filter
+        const priceVal = document.getElementById('price-filter').value;
+        if (priceVal !== 'all') {
+          const [min, max] = priceVal.split('-').map(Number);
+          filtered = filtered.filter((p) => p.price >= min && p.price <= max);
+        }
+
+        // Sort
+        const sortVal = document.getElementById('sort-select').value;
+        if (sortVal === 'termurah') filtered.sort((a, b) => a.price - b.price);
+        else if (sortVal === 'termahal')
+          filtered.sort((a, b) => b.price - a.price);
+        else if (sortVal === 'terlaris')
+          filtered.sort((a, b) => b.sold - a.sold);
+        else filtered.sort((a, b) => a.id - b.id);
+
+        // Pagination
+        const totalPages = Math.ceil(filtered.length / PER_PAGE) || 1;
+        if (currentPage > totalPages) currentPage = totalPages;
+        const start = (currentPage - 1) * PER_PAGE;
+        const pageItems = filtered.slice(start, start + PER_PAGE);
+
+        // Render cards
+        grid.innerHTML = pageItems
+          .map((p) => {
+            let imgHtml;
+            const imgUrl =
+              p.img ||
+              `https://picsum.photos/seed/${encodeURIComponent(p.name.toLowerCase().replace(/\s+/g, '-'))}/400/400`;
+            imgHtml = `<div class="relative overflow-hidden h-40"><img src="${imgUrl}" class="w-full h-full object-cover" alt="${p.name}" loading="lazy" />${p.badge ? `<span class="absolute top-3 left-3 ${p.badgeColor} text-white text-[10px] font-bold px-2.5 py-1 rounded-full">${p.badge}</span>` : ''}</div>`;
+            return `<div class="prod-card bg-white rounded-2xl overflow-hidden shadow-sm card-hover">
+          ${imgHtml}
+          <div class="p-3.5">
+            <p class="text-[10px] text-primary font-bold mb-1"><i class="ti ti-${p.icon}" style="font-size:12px"></i> ${p.category}</p>
+            <a href="product.html?id=${p.id}"><h3 class="font-bold text-sm mb-1 hover:text-primary">${p.name}</h3></a>
+            <p class="text-xs text-muted mb-1">${p.umkm}</p>
+            <p class="text-primary font-bold text-base mb-3">Rp${p.price.toLocaleString('id-ID')}</p>
+            <a href="https://wa.me/${p.wa}?text=Halo%20saya%20tertarik%20dengan%20${encodeURIComponent(p.name)}" target="_blank" class="flex items-center justify-center gap-2 bg-primary-container text-white text-xs font-bold py-2.5 rounded-full hover:bg-primary transition-all active:scale-95 shadow-sm">
+              <i class="ti ti-message" style="font-size:14px"></i> Pesan via WA
+            </a>
+          </div>
+        </div>`;
+          })
+          .join('');
+
+        // Render pagination
+        if (totalPages <= 1) {
+          pagination.innerHTML = '';
+          return;
+        }
+        let phtml = '';
+        phtml += `<button class="w-10 h-10 rounded-xl border border-gray-200 flex items-center justify-center hover:border-primary hover:text-primary transition-colors ${currentPage === 1 ? 'opacity-40 pointer-events-none' : ''}" onclick="goPage(${currentPage - 1})"><i class="ti ti-chevron-left" style="font-size:18px"></i></button>`;
+
+        const maxVisible = 5;
+        let pStart = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+        let pEnd = Math.min(totalPages, pStart + maxVisible - 1);
+        if (pEnd - pStart + 1 < maxVisible)
+          pStart = Math.max(1, pEnd - maxVisible + 1);
+
+        if (pStart > 1) {
+          phtml += `<button class="w-10 h-10 rounded-xl border border-gray-200 text-sm font-medium hover:border-primary hover:text-primary" onclick="goPage(1)">1</button>${pStart > 2 ? '<span class="text-muted">...</span>' : ''}`;
+        }
+        for (let i = pStart; i <= pEnd; i++) {
+          phtml += `<button class="w-10 h-10 rounded-xl ${i === currentPage ? 'bg-primary text-white font-bold' : 'border border-gray-200 text-sm font-medium hover:border-primary hover:text-primary'} text-sm" onclick="goPage(${i})">${i}</button>`;
+        }
+        if (pEnd < totalPages) {
+          phtml += `${pEnd < totalPages - 1 ? '<span class="text-muted">...</span>' : ''}<button class="w-10 h-10 rounded-xl border border-gray-200 text-sm font-medium hover:border-primary hover:text-primary" onclick="goPage(${totalPages})">${totalPages}</button>`;
+        }
+
+        phtml += `<button class="w-10 h-10 rounded-xl border border-gray-200 flex items-center justify-center hover:border-primary hover:text-primary transition-colors ${currentPage === totalPages ? 'opacity-40 pointer-events-none' : ''}" onclick="goPage(${currentPage + 1})"><i class="ti ti-chevron-right" style="font-size:18px"></i></button>`;
+        pagination.innerHTML = phtml;
+      }
+
+      function goPage(page) {
+        currentPage = page;
+        renderProducts();
+        document
+          .getElementById('product-grid')
+          .scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      function setCategory(cat) {
+        activeCategory = cat;
+        currentPage = 1;
+        document
+          .querySelectorAll('#category-chips .filter-chip')
+          .forEach((b) => b.classList.remove('active'));
+        document
+          .querySelector(`#category-chips .filter-chip[data-category="${cat}"]`)
+          .classList.add('active');
+        renderProducts();
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        const catParam = params.get('cat');
+        const qParam = params.get('q');
+        if (catParam) {
+          const found = document.querySelector(
+            `#category-chips .filter-chip[data-category="${catParam}"]`,
+          );
+          if (found) setCategory(catParam);
+        }
+        if (qParam) {
+          document.getElementById('search-input').value = qParam;
+        }
+        renderProducts();
+      });
+    </script>
+  </body>
+</html>

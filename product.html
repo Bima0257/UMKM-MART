@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detail Produk – UMKMart</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#b5000b', 'primary-container': '#e30613',
+            secondary: '#5e5e5e', surface: '#f8f9fb',
+            'surface-variant': '#e1e2e4', 'surface-container-low': '#f3f4f6',
+            'surface-container': '#edeef0', 'surface-container-high': '#e7e8ea',
+            'surface-container-highest': '#e1e2e4', 'card-bg': '#ffffff',
+            outline: '#936e69', 'outline-variant': '#e9bcb6',
+            success: '#10b981', error: '#ba1a1a',
+            charcoal: '#1a1a2e', muted: '#6b7280',
+          },
+          fontFamily: { display: ['Playfair Display', 'serif'] },
+        },
+      },
+    };
+  </script>
+  <style>
+    * { font-family: 'DM Sans', sans-serif; }
+    .font-display { font-family: 'Playfair Display', serif; }
+    .ti { font-size: 24px; display: inline-block; vertical-align: middle; }
+    .img-main { transition: transform .4s ease; }
+    .img-main:hover { transform: scale(1.03); }
+    .thumb-active { border-color: #b5000b; }
+    .pair-card { transition: all .3s; }
+    .pair-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(181,0,11,.1); }
+  </style>
+  <script src="products.js"></script>
+</head>
+<body class="bg-[#f8f9fb] text-charcoal">
+  <header class="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+    <div class="max-w-7xl mx-auto px-5 h-16 flex items-center justify-between gap-6">
+      <a href="index.html" class="font-display text-2xl font-bold text-primary">UMKMart</a>
+      <nav id="breadcrumb-nav" class="flex items-center gap-2 text-sm text-muted overflow-hidden">
+        <a href="index.html" class="hover:text-primary hidden md:block">Beranda</a>
+        <i class="ti ti-chevron-right hidden md:block" style="font-size:16px"></i>
+        <a href="catalog.html" class="hover:text-primary hidden md:block">Katalog</a>
+        <i class="ti ti-chevron-right hidden md:block" style="font-size:16px"></i>
+        <span class="text-charcoal font-semibold truncate max-w-32">Produk</span>
+      </nav>
+      <div class="flex items-center gap-3">
+        <a href="login.html" class="hidden md:flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-full text-sm font-semibold hover:brightness-90 transition-colors shadow-md shadow-primary/25">
+          <i class="ti ti-user" style="font-size:16px"></i> Masuk
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-16 pb-24 md:pb-12">
+    <div class="max-w-7xl mx-auto px-5 py-8">
+      <div class="grid lg:grid-cols-2 gap-10 items-start">
+        <div id="image-column" class="sticky top-24"></div>
+        <div id="details-column" class="space-y-6"></div>
+      </div>
+      <div id="related-section" class="mt-12"></div>
+    </div>
+  </main>
+
+  <footer class="bg-white border-t border-gray-100 pt-10 pb-24 md:pb-10 px-5">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <a href="index.html" class="font-display text-2xl font-bold text-primary block mb-3">UMKMart</a>
+        <p class="text-sm text-muted leading-relaxed">Platform digital untuk mendukung dan memasarkan produk UMKM Indonesia.</p>
+      </div>
+      <div>
+        <h4 class="font-bold text-sm mb-4">Navigasi</h4>
+        <ul class="space-y-2 text-sm text-muted">
+          <li><a href="index.html" class="hover:text-primary">Beranda</a></li>
+          <li><a href="catalog.html" class="hover:text-primary">Katalog Produk</a></li>
+          <li><a href="umkm-list.html" class="hover:text-primary">Daftar UMKM</a></li>
+          <li><a href="contact.html" class="hover:text-primary">Kontak</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold text-sm mb-4">Kategori</h4>
+        <ul class="space-y-2 text-sm text-muted">
+          <li><a href="catalog.html?cat=kuliner" class="hover:text-primary">Kuliner</a></li>
+          <li><a href="catalog.html?cat=fashion" class="hover:text-primary">Fashion</a></li>
+          <li><a href="catalog.html?cat=kerajinan" class="hover:text-primary">Kerajinan</a></li>
+          <li><a href="catalog.html?cat=pertanian" class="hover:text-primary">Pertanian</a></li>
+          <li><a href="catalog.html?cat=jasa" class="hover:text-primary">Jasa</a></li>
+          <li><a href="catalog.html?cat=kosmetik" class="hover:text-primary">Kosmetik</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold text-sm mb-4">Kontak</h4>
+        <ul class="space-y-2 text-sm text-muted">
+          <li class="flex items-center gap-2"><i class="ti ti-map-pin" style="font-size:16px"></i> Yogyakarta, Indonesia</li>
+          <li class="flex items-center gap-2"><i class="ti ti-mail" style="font-size:16px"></i> hello@umkmart.id</li>
+          <li class="flex items-center gap-2"><i class="ti ti-phone-call" style="font-size:16px"></i> +62 812 3456 7890</li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-gray-100 mt-8 pt-6 text-center text-xs text-muted">&copy; 2026 UMKMart.</div>
+  </footer>
+
+  <nav class="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-100 flex justify-around py-3 z-50" style="box-shadow:0 -4px 20px rgba(0,0,0,.08)">
+    <a href="index.html" class="flex flex-col items-center gap-0.5 text-muted"><i class="ti ti-building-store"></i><span class="text-[10px]">Beranda</span></a>
+    <a href="catalog.html" class="flex flex-col items-center gap-0.5 text-muted"><i class="ti ti-layout-grid"></i><span class="text-[10px]">Katalog</span></a>
+    <a href="umkm-list.html" class="flex flex-col items-center gap-0.5 text-muted"><i class="ti ti-users"></i><span class="text-[10px]">UMKM</span></a>
+    <a href="contact.html" class="flex flex-col items-center gap-0.5 text-muted"><i class="ti ti-mail"></i><span class="text-[10px]">Kontak</span></a>
+    <a href="login.html" class="flex flex-col items-center gap-0.5 text-muted"><i class="ti ti-user"></i><span class="text-[10px]">Akun</span></a>
+  </nav>
+  <div class="md:hidden h-20"></div>
+
+  <script>
+    const catIcon = {
+      'Kuliner': 'ti-building-store', 'Fashion': 'ti-shirt',
+      'Kerajinan': 'ti-palette', 'Pertanian': 'ti-seedling',
+      'Jasa': 'ti-settings', 'Kosmetik': 'ti-heart'
+    };
+    const catGrad = {
+      'Kuliner': 'from-[#fce4e4] to-[#edeef0]',
+      'Fashion': 'from-purple-50 to-pink-100',
+      'Kerajinan': 'from-amber-50 to-orange-100',
+      'Pertanian': 'from-green-50 to-emerald-100',
+      'Jasa': 'from-blue-50 to-cyan-100',
+      'Kosmetik': 'from-pink-50 to-rose-100'
+    };
+
+    function getRating(id) {
+      return (4.5 + ((id * 7) % 5) / 10).toFixed(1);
+    }
+
+    function renderStars(rating) {
+      const r = parseFloat(rating);
+      let s = '';
+      for (let i = 1; i <= 5; i++) {
+        if (i <= Math.floor(r)) s += '<i class="ti ti-star-filled text-sm"></i>';
+        else if (i - r < 1 && i - r > 0) s += '<i class="ti ti-star-half text-sm"></i>';
+        else s += '<i class="ti ti-star text-sm"></i>';
+      }
+      return s;
+    }
+
+    function formatPrice(p) {
+      return 'Rp' + p.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+
+    function renderBadge(product) {
+      if (!product.badge) return '';
+      return '<span class="bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-full">' + product.badge + '</span>';
+    }
+
+    function renderBreadcrumb(product) {
+      const catLow = product.category.toLowerCase();
+      document.getElementById('breadcrumb-nav').innerHTML =
+        '<a href="index.html" class="hover:text-primary hidden md:block">Beranda</a>' +
+        '<i class="ti ti-chevron-right hidden md:block" style="font-size:16px"></i>' +
+        '<a href="catalog.html?cat=' + catLow + '" class="hover:text-primary hidden md:block">' + product.category + '</a>' +
+        '<i class="ti ti-chevron-right hidden md:block" style="font-size:16px"></i>' +
+        '<span class="text-charcoal font-semibold truncate max-w-32">' + product.name + '</span>';
+    }
+
+    function renderImage(product) {
+      const hasImg = !!product.img;
+      const grad = catGrad[product.category] || 'from-[#fce4e4] to-[#edeef0]';
+      const icon = catIcon[product.category] || 'ti-building-store';
+      const seedKey = encodeURIComponent(product.name.toLowerCase().replace(/\s+/g, '-'));
+      const picsumBase = 'https://picsum.photos/seed';
+
+      window._productImages = [
+        hasImg ? product.img : picsumBase + '/' + seedKey + '/600/600',
+        picsumBase + '/' + seedKey + '-a/600/600',
+        picsumBase + '/' + seedKey + '-b/600/600'
+      ];
+
+      let badgeHtml = renderBadge(product);
+      let mainHtml;
+      if (hasImg) {
+        mainHtml = '<div class="bg-gradient-to-br ' + grad + ' rounded-3xl p-8 relative overflow-hidden">' +
+          '<div class="absolute top-4 right-4 flex gap-2">' + badgeHtml + '</div>' +
+          '<img id="main-img" src="' + product.img + '" class="img-main w-full max-w-sm mx-auto rounded-2xl shadow-2xl" />' +
+          '</div>';
+      } else {
+        mainHtml = '<div class="bg-gradient-to-br ' + grad + ' rounded-3xl p-8 relative overflow-hidden">' +
+          '<div class="absolute top-4 right-4 flex gap-2">' + badgeHtml + '</div>' +
+          '<div id="main-placeholder" class="flex items-center justify-center min-h-[250px]">' +
+          '<i class="ti ' + icon + '" style="font-size:80px;opacity:0.3"></i>' +
+          '</div>' +
+          '<img id="main-img" src="" class="img-main w-full max-w-sm mx-auto rounded-2xl shadow-2xl hidden" />' +
+          '</div>';
+      }
+
+      let thumbsHtml = '<div class="flex gap-3 mt-4">';
+      window._productImages.forEach(function(src, i) {
+        var cls = i === 0 ? 'thumb-active' : 'border-gray-200';
+        thumbsHtml += '<button class="w-16 h-16 rounded-xl overflow-hidden border-2 ' + cls + ' shadow-sm" onclick="switchImage(' + i + ')">' +
+          '<img src="' + src + '" class="w-full h-full object-cover" alt="" />' +
+          '</button>';
+      });
+      thumbsHtml += '</div>';
+
+      document.getElementById('image-column').innerHTML = mainHtml + thumbsHtml;
+    }
+
+    function switchImage(idx) {
+      var btns = document.querySelectorAll('#image-column button');
+      btns.forEach(function(b) {
+        b.classList.remove('thumb-active');
+        b.classList.add('border-gray-200');
+      });
+      btns[idx].classList.add('thumb-active');
+      btns[idx].classList.remove('border-gray-200');
+
+      var src = window._productImages[idx];
+      var img = document.getElementById('main-img');
+      var placeholder = document.getElementById('main-placeholder');
+      if (placeholder) {
+        placeholder.classList.add('hidden');
+      }
+      img.classList.remove('hidden');
+      img.src = src;
+    }
+
+    function renderDetails(product) {
+      var rating = getRating(product.id);
+      var icon = catIcon[product.category] || 'ti-building-store';
+      var catLow = product.category.toLowerCase();
+
+      var html = '';
+      html += '<div>';
+      html += '<div class="flex items-center gap-2 mb-2">';
+      html += '<span class="bg-[#fce4e4] text-primary text-xs font-bold px-3 py-1 rounded-full">';
+      html += '<i class="ti ' + icon + '" style="font-size:12px"></i> ' + product.category + '</span>';
+      html += '<span class="bg-success/10 text-success text-xs font-bold px-3 py-1 rounded-full">✓ Tersedia</span>';
+      html += '</div>';
+      html += '<h1 class="font-display text-3xl md:text-4xl font-bold text-charcoal mb-2">' + product.name + '</h1>';
+      html += '<p class="text-primary text-2xl font-bold">' + formatPrice(product.price) + '</p>';
+      html += '</div>';
+
+      html += '<div class="flex items-center gap-4 py-4 border-t border-b border-gray-100">';
+      html += '<div class="flex items-center gap-1.5">';
+      html += '<div class="flex text-yellow-400">' + renderStars(rating) + '</div>';
+      html += '<span class="text-sm font-bold">' + rating + '</span>';
+      html += '<span class="text-sm text-muted">(' + product.sold + ' terjual)</span>';
+      html += '</div>';
+      html += '</div>';
+
+      html += '<div>';
+      html += '<h3 class="text-xs font-bold uppercase tracking-widest text-muted mb-2">Deskripsi</h3>';
+      html += '<p class="text-muted leading-relaxed text-sm">' + product.desc + '</p>';
+      html += '</div>';
+
+      html += renderSeller(product);
+      html += renderWhatsApp(product);
+
+      html += '<div class="grid grid-cols-2 gap-3 pt-2">';
+      html += '<div class="bg-white rounded-xl p-3 border border-gray-100 text-center">';
+      html += '<i class="ti ti-package text-primary" style="font-size:20px"></i>';
+      html += '<p class="text-xs font-bold mt-1">Berat / Kemasan</p>';
+      html += '<p class="text-[11px] text-muted">' + product.info + '</p>';
+      html += '</div>';
+      html += '<div class="bg-white rounded-xl p-3 border border-gray-100 text-center">';
+      html += '<i class="ti ti-truck-delivery text-primary" style="font-size:20px"></i>';
+      html += '<p class="text-xs font-bold mt-1">Pengiriman</p>';
+      html += '<p class="text-[11px] text-muted">Seluruh Indonesia</p>';
+      html += '</div>';
+      html += '</div>';
+
+      document.getElementById('details-column').innerHTML = html;
+    }
+
+    function renderSeller(product) {
+      var icon = catIcon[product.category] || 'ti-building-store';
+      return '<div class="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">' +
+        '<p class="text-xs font-bold uppercase tracking-widest text-muted mb-3">Penjual</p>' +
+        '<a href="umkm-profile.html?id=' + product.umkmId + '" class="flex items-center gap-3 group">' +
+        '<div class="w-12 h-12 rounded-full bg-[#fce4e4] flex items-center justify-center text-xl">' +
+        '<i class="ti ' + icon + '" style="font-size:24px"></i></div>' +
+        '<div class="flex-1">' +
+        '<p class="font-bold text-sm group-hover:text-primary transition-colors">' + product.umkm + '</p>' +
+        '<p class="text-xs text-muted">Bergabung 2025</p>' +
+        '</div>' +
+        '<span class="text-xs text-primary font-semibold hover:underline">Lihat Profil</span>' +
+        '</a>' +
+        '</div>';
+    }
+
+    function renderWhatsApp(product) {
+      var text = 'Halo%20' + encodeURIComponent(product.umkm) + '%2C%20saya%20tertarik%20dengan%20' +
+        encodeURIComponent(product.name) + '%20(' + encodeURIComponent(formatPrice(product.price)) + ')';
+      return '<a href="https://wa.me/' + product.wa + '?text=' + text + '" target="_blank" ' +
+        'class="flex items-center justify-center gap-3 bg-primary-container text-white px-6 py-4 rounded-2xl font-bold text-base hover:bg-primary transition-all active:scale-[.98] shadow-lg shadow-green-600/30">' +
+        '<i class="ti ti-message" style="font-size:24px"></i>' +
+        'Pesan via WhatsApp' +
+        '</a>';
+    }
+
+    function renderRelatedProducts(product) {
+      var related = getRelatedProducts(product, 4);
+      if (!related.length) {
+        document.getElementById('related-section').innerHTML = '';
+        return;
+      }
+
+      var html = '<h2 class="font-display text-2xl font-bold text-charcoal mb-5">Produk Terkait</h2>';
+      html += '<div class="grid grid-cols-2 md:grid-cols-4 gap-4">';
+
+      related.forEach(function(p) {
+        var grad = catGrad[p.category] || 'from-[#fce4e4] to-[#edeef0]';
+        var icon = catIcon[p.category] || 'ti-building-store';
+        var imgHtml;
+        if (p.img) {
+          imgHtml = '<img src="' + p.img + '" class="w-full h-full object-cover" alt="' + p.name + '" />';
+        } else {
+          imgHtml = '<div class="w-full h-full flex items-center justify-center bg-gradient-to-br ' + grad + '">' +
+            '<i class="ti ' + icon + '" style="font-size:32px"></i></div>';
+        }
+        html += '<a href="product.html?id=' + p.id + '" class="pair-card bg-white rounded-2xl overflow-hidden shadow-sm block">' +
+          '<div class="relative overflow-hidden h-32">' + imgHtml + '</div>' +
+          '<div class="p-3">' +
+          '<p class="text-[10px] text-primary font-bold">' + p.umkm + '</p>' +
+          '<p class="font-bold text-sm">' + p.name + '</p>' +
+          '<p class="text-primary text-sm font-bold">' + formatPrice(p.price) + '</p>' +
+          '</div>' +
+          '</a>';
+      });
+
+      html += '</div>';
+      document.getElementById('related-section').innerHTML = html;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      var id = parseInt(new URLSearchParams(location.search).get('id')) || 1;
+      var product = allProducts.find(function(p) { return p.id === id; });
+      if (!product) {
+        window.location.href = 'catalog.html';
+        return;
+      }
+      document.title = product.name + ' – UMKMart';
+      renderBreadcrumb(product);
+      renderImage(product);
+      renderDetails(product);
+      renderRelatedProducts(product);
+    });
+  </script>
+</body>
+</html>

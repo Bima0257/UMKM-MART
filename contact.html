@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kontak – UMKMart</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#b5000b',
+              'primary-container': '#e30613',
+              secondary: '#5e5e5e',
+              surface: '#f8f9fb',
+              'surface-variant': '#e1e2e4',
+              'surface-container-low': '#f3f4f6',
+              'surface-container': '#edeef0',
+              'surface-container-high': '#e7e8ea',
+              'surface-container-highest': '#e1e2e4',
+              'card-bg': '#ffffff',
+              outline: '#936e69',
+              'outline-variant': '#e9bcb6',
+              success: '#10b981',
+              error: '#ba1a1a',
+              charcoal: '#1a1a2e',
+              muted: '#6b7280',
+            },
+            fontFamily: { display: ['Playfair Display', 'serif'] },
+          },
+        },
+      };
+    </script>
+    <style>
+      * {
+        font-family: 'DM Sans', sans-serif;
+      }
+      .font-display {
+        font-family: 'Playfair Display', serif;
+      }
+      .ti {
+        font-size: 24px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .input-field {
+        transition: all 0.2s;
+      }
+      .input-field:focus {
+        border-color: #b5000b;
+        box-shadow: 0 0 0 3px rgba(181, 0, 11, 0.1);
+      }
+      .contact-card {
+        transition: all 0.3s;
+      }
+      .contact-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 24px rgba(181, 0, 11, 0.1);
+      }
+    </style>
+  </head>
+  <body class="bg-[#f8f9fb] text-charcoal">
+    <header
+      class="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm"
+    >
+      <div
+        class="max-w-7xl mx-auto px-5 h-16 flex items-center justify-between gap-6"
+      >
+        <a
+          href="index.html"
+          class="font-display text-2xl font-bold text-primary tracking-tight"
+          >UMKMart</a
+        >
+        <nav class="hidden md:flex items-center gap-7">
+          <a
+            href="index.html"
+            class="text-sm font-medium text-muted hover:text-primary"
+            >Beranda</a
+          >
+          <a
+            href="catalog.html"
+            class="text-sm font-medium text-muted hover:text-primary"
+            >Katalog</a
+          >
+          <a
+            href="umkm-list.html"
+            class="text-sm font-medium text-muted hover:text-primary"
+            >UMKM</a
+          >
+          <a
+            href="contact.html"
+            class="text-sm font-semibold text-primary border-b-2 border-primary pb-0.5"
+            >Kontak</a
+          >
+        </nav>
+        <div class="flex items-center gap-3">
+          <a
+            href="login.html"
+            class="hidden md:flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-full text-sm font-semibold hover:brightness-90 transition-colors shadow-md shadow-primary/25"
+          >
+            <i class="ti ti-user" style="font-size: 16px"></i> Masuk
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="pt-16 pb-24 md:pb-12">
+      <div
+        class="bg-gradient-to-r from-primary to-primary-container py-10 px-5"
+      >
+        <div class="max-w-7xl mx-auto">
+          <nav class="flex items-center gap-2 text-white/70 text-sm mb-4">
+            <a href="index.html" class="hover:text-white">Beranda</a>
+            <i class="ti ti-chevron-right" style="font-size: 16px"></i>
+            <span class="text-white font-semibold">Kontak</span>
+          </nav>
+          <h1
+            class="font-display text-3xl md:text-4xl font-bold text-white mb-2"
+          >
+            Hubungi Kami
+          </h1>
+          <p class="text-white/80 text-sm">
+            Ada pertanyaan? Kami siap membantu
+          </p>
+        </div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-5 py-10">
+        <div class="grid md:grid-cols-2 gap-10 items-start">
+          <!-- Contact Form -->
+          <div class="bg-white rounded-2xl shadow-sm p-6 md:p-8">
+            <h2 class="font-display text-2xl font-bold text-charcoal mb-6">
+              Kirim Pesan
+            </h2>
+            <form onsubmit="handleContact(event)" class="space-y-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label
+                    class="block text-sm font-semibold text-charcoal mb-1.5"
+                    >Nama Lengkap</label
+                  >
+                  <input
+                    type="text"
+                    class="input-field w-full px-4 py-3 border border-gray-200 rounded-xl text-sm bg-white outline-none"
+                    placeholder="Nama Anda"
+                    required
+                  />
+                </div>
+                <div>
+                  <label
+                    class="block text-sm font-semibold text-charcoal mb-1.5"
+                    >Email</label
+                  >
+                  <input
+                    type="email"
+                    class="input-field w-full px-4 py-3 border border-gray-200 rounded-xl text-sm bg-white outline-none"
+                    placeholder="email@anda.com"
+                    required
+                  />
+                </div>
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-charcoal mb-1.5"
+                  >Subjek</label
+                >
+                <input
+                  type="text"
+                  class="input-field w-full px-4 py-3 border border-gray-200 rounded-xl text-sm bg-white outline-none"
+                  placeholder="Subjek pesan"
+                />
+              </div>
+              <div>
+                <label class="block text-sm font-semibold text-charcoal mb-1.5"
+                  >Pesan</label
+                >
+                <textarea
+                  class="input-field w-full px-4 py-3 border border-gray-200 rounded-xl text-sm bg-white outline-none resize-none"
+                  rows="5"
+                  placeholder="Tulis pesan Anda..."
+                  required
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                class="w-full bg-primary text-white py-3.5 rounded-xl font-bold text-base hover:brightness-90 transition-all active:scale-[.98] shadow-lg shadow-primary/25"
+              >
+                Kirim Pesan
+              </button>
+            </form>
+            <div
+              id="success-msg"
+              class="hidden mt-4 bg-primary-50 text-green-700 text-sm font-medium px-4 py-3 rounded-xl flex items-center gap-2"
+            >
+              <i class="ti ti-circle-check" style="font-size: 18px"></i>
+              Pesan berhasil dikirim! Kami akan menghubungi Anda segera.
+            </div>
+          </div>
+
+          <!-- Contact Info -->
+          <div class="space-y-5">
+            <div
+              class="contact-card bg-white rounded-2xl shadow-sm p-6 flex items-start gap-4"
+            >
+              <div
+                class="w-12 h-12 rounded-xl bg-[#fce4e4] flex items-center justify-center flex-shrink-0"
+              >
+                <i class="ti ti-map-pin text-primary"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-sm">Alamat</h3>
+                <p class="text-sm text-muted mt-1">
+                  Jl. Kaliurang KM 5, No. 10<br />Yogyakarta 55281, Indonesia
+                </p>
+              </div>
+            </div>
+            <div
+              class="contact-card bg-white rounded-2xl shadow-sm p-6 flex items-start gap-4"
+            >
+              <div
+                class="w-12 h-12 rounded-xl bg-[#fce4e4] flex items-center justify-center flex-shrink-0"
+              >
+                <i class="ti ti-phone-call text-primary"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-sm">Telepon</h3>
+                <p class="text-sm text-muted mt-1">+62 812 3456 7890</p>
+                <p class="text-sm text-muted">+62 812 3456 7891</p>
+              </div>
+            </div>
+            <div
+              class="contact-card bg-white rounded-2xl shadow-sm p-6 flex items-start gap-4"
+            >
+              <div
+                class="w-12 h-12 rounded-xl bg-[#fce4e4] flex items-center justify-center flex-shrink-0"
+              >
+                <i class="ti ti-mail text-primary"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-sm">Email</h3>
+                <p class="text-sm text-muted mt-1">hello@umkmart.id</p>
+                <p class="text-sm text-muted">support@umkmart.id</p>
+              </div>
+            </div>
+            <div
+              class="contact-card bg-white rounded-2xl shadow-sm p-6 flex items-start gap-4"
+            >
+              <div
+                class="w-12 h-12 rounded-xl bg-[#fce4e4] flex items-center justify-center flex-shrink-0"
+              >
+                <i class="ti ti-clock text-primary"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-sm">Jam Operasional</h3>
+                <p class="text-sm text-muted mt-1">
+                  Senin – Jumat: 08:00 – 17:00
+                </p>
+                <p class="text-sm text-muted">Sabtu: 08:00 – 14:00</p>
+              </div>
+            </div>
+
+            <!-- Social -->
+            <div class="bg-white rounded-2xl shadow-sm p-6">
+              <h3 class="font-bold text-sm mb-4">Ikuti Kami</h3>
+              <div class="flex items-center gap-3">
+                <a
+                  href="#"
+                  class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center hover:bg-primary hover:text-white transition-all text-blue-600"
+                  ><i class="ti ti-brand-instagram"></i
+                ></a>
+                <a
+                  href="#"
+                  class="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center hover:bg-primary hover:text-white transition-all text-sky-600"
+                  ><i class="ti ti-brand-tiktok"></i
+                ></a>
+                <a
+                  href="#"
+                  class="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center hover:bg-primary hover:text-white transition-all text-purple-600"
+                  ><i class="ti ti-brand-youtube"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-100 pt-10 pb-24 md:pb-10 px-5">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <a
+            href="index.html"
+            class="font-display text-2xl font-bold text-primary block mb-3"
+            >UMKMart</a
+          >
+          <p class="text-sm text-muted leading-relaxed">
+            Platform digital untuk mendukung dan memasarkan produk UMKM
+            Indonesia.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm mb-4">Navigasi</h4>
+          <ul class="space-y-2 text-sm text-muted">
+            <li><a href="index.html" class="hover:text-primary">Beranda</a></li>
+            <li>
+              <a href="catalog.html" class="hover:text-primary"
+                >Katalog Produk</a
+              >
+            </li>
+            <li>
+              <a href="umkm-list.html" class="hover:text-primary"
+                >Daftar UMKM</a
+              >
+            </li>
+            <li>
+              <a href="contact.html" class="hover:text-primary">Kontak</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm mb-4">Kategori</h4>
+          <ul class="space-y-2 text-sm text-muted">
+            <li>
+              <a href="catalog.html?cat=kuliner" class="hover:text-primary"
+                >Kuliner</a
+              >
+            </li>
+            <li>
+              <a href="catalog.html?cat=fashion" class="hover:text-primary"
+                >Fashion</a
+              >
+            </li>
+            <li>
+              <a href="catalog.html?cat=kerajinan" class="hover:text-primary"
+                >Kerajinan</a
+              >
+            </li>
+            <li>
+              <a href="catalog.html?cat=pertanian" class="hover:text-primary"
+                >Pertanian</a
+              >
+            </li>
+            <li>
+              <a href="catalog.html?cat=jasa" class="hover:text-primary"
+                >Jasa</a
+              >
+            </li>
+            <li>
+              <a href="catalog.html?cat=kosmetik" class="hover:text-primary"
+                >Kosmetik</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm mb-4">Kontak</h4>
+          <ul class="space-y-2 text-sm text-muted">
+            <li class="flex items-center gap-2">
+              <i class="ti ti-map-pin" style="font-size: 16px"></i> Yogyakarta,
+              Indonesia
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="ti ti-mail" style="font-size: 16px"></i>
+              hello@umkmart.id
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="ti ti-phone-call" style="font-size: 16px"></i> +62 812
+              3456 7890
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        class="border-t border-gray-100 mt-8 pt-6 text-center text-xs text-muted"
+      >
+        &copy; 2026 UMKMart.
+      </div>
+    </footer>
+
+    <nav
+      class="md:hidden fixed bottom-0 left-0 w-full bg-white bottom-nav flex justify-around py-3 z-50"
+      style="box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08)"
+    >
+      <a href="index.html" class="flex flex-col items-center gap-0.5 text-muted"
+        ><i class="ti ti-building-store"></i
+        ><span class="text-[10px]">Beranda</span></a
+      >
+      <a
+        href="catalog.html"
+        class="flex flex-col items-center gap-0.5 text-muted"
+        ><i class="ti ti-layout-grid"></i
+        ><span class="text-[10px]">Katalog</span></a
+      >
+      <a
+        href="umkm-list.html"
+        class="flex flex-col items-center gap-0.5 text-muted"
+        ><i class="ti ti-users"></i><span class="text-[10px]">UMKM</span></a
+      >
+      <a
+        href="contact.html"
+        class="flex flex-col items-center gap-0.5 text-primary"
+        ><i class="ti ti-mail"></i
+        ><span class="text-[10px] font-bold">Kontak</span></a
+      >
+      <a href="login.html" class="flex flex-col items-center gap-0.5 text-muted"
+        ><i class="ti ti-user"></i><span class="text-[10px]">Akun</span></a
+      >
+    </nav>
+    <div class="md:hidden h-20"></div>
+
+    <script>
+      function handleContact(e) {
+        e.preventDefault();
+        document.getElementById('success-msg').classList.remove('hidden');
+        e.target.reset();
+      }
+    </script>
+  </body>
+</html>

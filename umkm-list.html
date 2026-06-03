@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daftar UMKM – UMKMart</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#b5000b',
+              'primary-container': '#e30613',
+              secondary: '#5e5e5e',
+              surface: '#f8f9fb',
+              'surface-variant': '#e1e2e4',
+              'surface-container-low': '#f3f4f6',
+              'surface-container': '#edeef0',
+              'surface-container-high': '#e7e8ea',
+              'surface-container-highest': '#e1e2e4',
+              'card-bg': '#ffffff',
+              outline: '#936e69',
+              'outline-variant': '#e9bcb6',
+              success: '#10b981',
+              error: '#ba1a1a',
+              charcoal: '#1a1a2e',
+              muted: '#6b7280',
+            },
+            fontFamily: { display: ['Playfair Display', 'serif'] },
+          },
+        },
+      };
+    </script>
+    <style>
+      * {
+        font-family: 'DM Sans', sans-serif;
+      }
+      .font-display {
+        font-family: 'Playfair Display', serif;
+      }
+      .ti {
+        font-size: 24px;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .umkm-card {
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .umkm-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 40px rgba(181, 0, 11, 0.12);
+      }
+    </style>
+  </head>
+  <body class="bg-[#f8f9fb] text-charcoal">
+    <header
+      class="fixed top-0 left-0 w-full z-50 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm"
+    >
+      <div
+        class="max-w-7xl mx-auto px-5 h-16 flex items-center justify-between gap-6"
+      >
+        <a
+          href="index.html"
+          class="font-display text-2xl font-bold text-primary tracking-tight"
+          >UMKMart</a
+        >
+        <nav class="hidden md:flex items-center gap-7">
+          <a
+            href="index.html"
+            class="text-sm font-medium text-muted hover:text-primary"
+            >Beranda</a
+          >
+          <a
+            href="catalog.html"
+            class="text-sm font-medium text-muted hover:text-primary"
+            >Katalog</a
+          >
+          <a
+            href="umkm-list.html"
+            class="text-sm font-semibold text-primary border-b-2 border-primary pb-0.5"
+            >UMKM</a
+          >
+          <a
+            href="contact.html"
+            class="text-sm font-medium text-muted hover:text-primary"
+            >Kontak</a
+          >
+        </nav>
+        <div class="flex items-center gap-3">
+          <a
+            href="login.html"
+            class="hidden md:flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-full text-sm font-semibold hover:brightness-90 transition-colors shadow-md shadow-primary/25"
+          >
+            <i class="ti ti-user" style="font-size: 16px"></i> Masuk
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="pt-16 pb-24 md:pb-12">
+      <div
+        class="bg-gradient-to-r from-primary to-primary-container py-10 px-5"
+      >
+        <div class="max-w-7xl mx-auto">
+          <nav class="flex items-center gap-2 text-white/70 text-sm mb-4">
+            <a href="index.html" class="hover:text-white">Beranda</a>
+            <i class="ti ti-chevron-right" style="font-size: 16px"></i>
+            <span class="text-white font-semibold">Daftar UMKM</span>
+          </nav>
+          <h1
+            class="font-display text-3xl md:text-4xl font-bold text-white mb-2"
+          >
+            UMKM Terdaftar
+          </h1>
+          <p class="text-white/80 text-sm">
+            Kenali dan dukung UMKM lokal Indonesia
+          </p>
+        </div>
+      </div>
+
+      <div class="max-w-7xl mx-auto px-5 py-8">
+        <!-- Search & Filter -->
+        <div class="flex items-center gap-3 mb-8 flex-wrap">
+          <div
+            class="flex-1 min-w-[200px] flex items-center bg-white rounded-full px-4 py-2.5 border border-gray-200 gap-2"
+          >
+            <i class="ti ti-search text-muted" style="font-size: 18px"></i>
+            <input
+              id="umkm-search"
+              class="bg-transparent border-none outline-none text-sm w-full placeholder-gray-400 focus:outline-none focus:ring-0 focus:border-transparent"
+              placeholder="Cari UMKM..."
+              oninput="renderUmkm()"
+            />
+          </div>
+          <select
+            id="umkm-category"
+            class="border border-gray-200 rounded-xl px-4 py-2.5 text-sm bg-white outline-none focus:border-primary"
+            onchange="renderUmkm()"
+          >
+            <option value="all">Semua Kategori</option>
+            <option value="Kuliner">Kuliner</option>
+            <option value="Fashion">Fashion</option>
+            <option value="Kerajinan">Kerajinan</option>
+            <option value="Pertanian">Pertanian</option>
+            <option value="Jasa">Jasa</option>
+            <option value="Kosmetik">Kosmetik</option>
+          </select>
+          <select
+            id="umkm-city"
+            class="border border-gray-200 rounded-xl px-4 py-2.5 text-sm bg-white outline-none focus:border-primary"
+            onchange="renderUmkm()"
+          >
+            <option value="all">Semua Kota</option>
+            <option value="Yogyakarta">Yogyakarta</option>
+            <option value="Jakarta">Jakarta</option>
+            <option value="Bandung">Bandung</option>
+            <option value="Solo">Solo</option>
+            <option value="Sleman">Sleman</option>
+            <option value="Surabaya">Surabaya</option>
+          </select>
+        </div>
+
+        <!-- UMKM Grid -->
+        <div
+          id="umkm-grid"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+        ></div>
+
+        <!-- Pagination -->
+        <div
+          id="umkm-pagination"
+          class="flex items-center justify-center gap-2 mt-10"
+        ></div>
+      </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-100 pt-10 pb-24 md:pb-10 px-5">
+      <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <a
+            href="index.html"
+            class="font-display text-2xl font-bold text-primary block mb-3"
+            >UMKMart</a
+          >
+          <p class="text-sm text-muted leading-relaxed">
+            Platform digital untuk mendukung dan memasarkan produk UMKM
+            Indonesia.
+          </p>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm mb-4">Navigasi</h4>
+          <ul class="space-y-2 text-sm text-muted">
+            <li><a href="index.html" class="hover:text-primary">Beranda</a></li>
+            <li>
+              <a href="catalog.html" class="hover:text-primary"
+                >Katalog Produk</a
+              >
+            </li>
+            <li>
+              <a href="umkm-list.html" class="hover:text-primary"
+                >Daftar UMKM</a
+              >
+            </li>
+            <li>
+              <a href="contact.html" class="hover:text-primary">Kontak</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm mb-4">Kategori</h4>
+          <ul class="space-y-2 text-sm text-muted">
+            <li>
+              <a href="catalog.html?cat=kuliner" class="hover:text-primary"
+                >Kuliner</a
+              >
+            </li>
+            <li>
+              <a href="catalog.html?cat=fashion" class="hover:text-primary"
+                >Fashion</a
+              >
+            </li>
+            <li>
+              <a href="catalog.html?cat=kerajinan" class="hover:text-primary"
+                >Kerajinan</a
+              >
+            </li>
+            <li>
+              <a href="catalog.html?cat=pertanian" class="hover:text-primary"
+                >Pertanian</a
+              >
+            </li>
+            <li>
+              <a href="catalog.html?cat=jasa" class="hover:text-primary"
+                >Jasa</a
+              >
+            </li>
+            <li>
+              <a href="catalog.html?cat=kosmetik" class="hover:text-primary"
+                >Kosmetik</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-sm mb-4">Kontak</h4>
+          <ul class="space-y-2 text-sm text-muted">
+            <li class="flex items-center gap-2">
+              <i class="ti ti-map-pin" style="font-size: 16px"></i> Yogyakarta,
+              Indonesia
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="ti ti-mail" style="font-size: 16px"></i>
+              hello@umkmart.id
+            </li>
+            <li class="flex items-center gap-2">
+              <i class="ti ti-phone-call" style="font-size: 16px"></i> +62 812
+              3456 7890
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div
+        class="border-t border-gray-100 mt-8 pt-6 text-center text-xs text-muted"
+      >
+        &copy; 2026 UMKMart.
+      </div>
+    </footer>
+
+    <nav
+      class="md:hidden fixed bottom-0 left-0 w-full bg-white bottom-nav flex justify-around py-3 z-50"
+      style="box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08)"
+    >
+      <a href="index.html" class="flex flex-col items-center gap-0.5 text-muted"
+        ><i class="ti ti-building-store"></i
+        ><span class="text-[10px]">Beranda</span></a
+      >
+      <a
+        href="catalog.html"
+        class="flex flex-col items-center gap-0.5 text-muted"
+        ><i class="ti ti-layout-grid"></i
+        ><span class="text-[10px]">Katalog</span></a
+      >
+      <a
+        href="umkm-list.html"
+        class="flex flex-col items-center gap-0.5 text-primary"
+        ><i class="ti ti-users"></i
+        ><span class="text-[10px] font-bold">UMKM</span></a
+      >
+      <a
+        href="contact.html"
+        class="flex flex-col items-center gap-0.5 text-muted"
+        ><i class="ti ti-mail"></i><span class="text-[10px]">Kontak</span></a
+      >
+      <a href="login.html" class="flex flex-col items-center gap-0.5 text-muted"
+        ><i class="ti ti-user"></i><span class="text-[10px]">Akun</span></a
+      >
+    </nav>
+    <div class="md:hidden h-20"></div>
+
+    <script>
+      const UMKM_PER_PAGE = 3;
+      let umkmPage = 1;
+
+      const allUmkm = [
+        {
+          name: 'Sari Rasa',
+          icon: 'building-store',
+          category: 'Kuliner',
+          city: 'Yogyakarta',
+          products: 12,
+          rating: 4.8,
+          year: 2025,
+          desc: 'Produksi abon sapi dan dendeng khas Yogyakarta dengan resep turun-temurun.',
+          gradient: 'from-primary to-primary-container',
+        },
+        {
+          name: 'Batik Lestari',
+          icon: 'shirt',
+          category: 'Fashion',
+          city: 'Solo',
+          products: 8,
+          rating: 4.9,
+          year: 2024,
+          desc: 'Batik tulis dan cap berkualitas tinggi dengan motif tradisional dan kontemporer.',
+          gradient: 'from-purple-500 to-pink-500',
+        },
+        {
+          name: 'Karya Tangan',
+          icon: 'brush',
+          category: 'Kerajinan',
+          city: 'Bandung',
+          products: 15,
+          rating: 4.7,
+          year: 2025,
+          desc: 'Kerajinan anyaman bambu dan rotan modern untuk dekorasi rumah dan hadiah.',
+          gradient: 'from-amber-500 to-orange-500',
+        },
+        {
+          name: 'Tani Makmur',
+          icon: 'seedling',
+          category: 'Pertanian',
+          city: 'Sleman',
+          products: 7,
+          rating: 4.6,
+          year: 2025,
+          desc: 'Petani organik yang menyediakan beras merah, sayuran segar, dan hasil bumi berkualitas.',
+          gradient: 'from-green-500 to-emerald-500',
+        },
+        {
+          name: 'Servis Teknik',
+          icon: 'wrench',
+          category: 'Jasa',
+          city: 'Jakarta',
+          products: 5,
+          rating: 4.5,
+          year: 2026,
+          desc: 'Jasa perbaikan elektronik rumah tangga dan service AC profesional.',
+          gradient: 'from-blue-500 to-cyan-500',
+        },
+        {
+          name: 'Madu Nusantara',
+          icon: 'building-store',
+          category: 'Kuliner',
+          city: 'Yogyakarta',
+          products: 10,
+          rating: 4.8,
+          year: 2024,
+          desc: 'Madu murni dari hutan Indonesia. Kaya manfaat untuk kesehatan dan kecantikan.',
+          gradient: 'from-rose-500 to-red-500',
+        },
+        {
+          name: 'Tenun Flores',
+          icon: 'shirt',
+          category: 'Fashion',
+          city: 'Bandung',
+          products: 6,
+          rating: 4.7,
+          year: 2025,
+          desc: 'Tenun ikat tradisional NTT dengan motif khas Flores yang penuh warna.',
+          gradient: 'from-violet-500 to-purple-500',
+        },
+        {
+          name: 'Mebel Jepara',
+          icon: 'brush',
+          category: 'Kerajinan',
+          city: 'Yogyakarta',
+          products: 9,
+          rating: 4.8,
+          year: 2024,
+          desc: 'Mebel kayu jati berkualitas dengan ukiran khas Jepara.',
+          gradient: 'from-amber-600 to-orange-600',
+        },
+        {
+          name: 'Bersih Bersih',
+          icon: 'wrench',
+          category: 'Jasa',
+          city: 'Jakarta',
+          products: 4,
+          rating: 4.4,
+          year: 2026,
+          desc: 'Jasa kebersihan rumah dan kantor. Profesional dan terpercaya.',
+          gradient: 'from-sky-500 to-blue-500',
+        },
+        {
+          name: 'Beauty Queen',
+          icon: 'sparkles',
+          category: 'Kosmetik',
+          city: 'Yogyakarta',
+          products: 8,
+          rating: 4.7,
+          year: 2025,
+          desc: 'Salon kecantikan dan produk kosmetik berkualitas.',
+          gradient: 'from-pink-500 to-rose-500',
+        },
+        {
+          name: 'Glowing Skin',
+          icon: 'sparkles',
+          category: 'Kosmetik',
+          city: 'Bandung',
+          products: 12,
+          rating: 4.6,
+          year: 2025,
+          desc: 'Produk perawatan kulit organik dari bahan alami Indonesia.',
+          gradient: 'from-fuchsia-500 to-pink-500',
+        },
+        {
+          name: 'Herbal Indo',
+          icon: 'sparkles',
+          category: 'Kosmetik',
+          city: 'Yogyakarta',
+          products: 10,
+          rating: 4.5,
+          year: 2026,
+          desc: 'Herbal dan kosmetik alami untuk kecantikan dan kesehatan.',
+          gradient: 'from-rose-500 to-pink-500',
+        },
+      ];
+
+      function renderUmkm() {
+        const grid = document.getElementById('umkm-grid');
+        const pagination = document.getElementById('umkm-pagination');
+        const query = document
+          .getElementById('umkm-search')
+          .value.toLowerCase()
+          .trim();
+        const catFilter = document.getElementById('umkm-category').value;
+        const cityFilter = document.getElementById('umkm-city').value;
+
+        let filtered = allUmkm.filter((u) => {
+          if (catFilter !== 'all' && u.category !== catFilter) return false;
+          if (cityFilter !== 'all' && u.city !== cityFilter) return false;
+          if (
+            query &&
+            !u.name.toLowerCase().includes(query) &&
+            !u.category.toLowerCase().includes(query) &&
+            !u.desc.toLowerCase().includes(query)
+          )
+            return false;
+          return true;
+        });
+
+        const totalPages = Math.ceil(filtered.length / UMKM_PER_PAGE) || 1;
+        if (umkmPage > totalPages) umkmPage = totalPages;
+        const start = (umkmPage - 1) * UMKM_PER_PAGE;
+        const pageItems = filtered.slice(start, start + UMKM_PER_PAGE);
+
+        grid.innerHTML = pageItems
+          .map(
+            (u) => `
+        <div class="umkm-card bg-white rounded-2xl shadow-sm overflow-hidden">
+          <div class="h-24 bg-gradient-to-r ${u.gradient} relative">
+            <div class="absolute -bottom-10 left-6 w-20 h-20 rounded-2xl bg-white shadow-md flex items-center justify-center border-2 border-white"><i class="ti ti-${u.icon}" style="font-size:32px"></i></div>
+          </div>
+          <div class="pt-12 px-6 pb-6">
+            <div class="flex items-start justify-between mb-3">
+              <div>
+                <h3 class="font-bold text-lg">${u.name}</h3>
+                <p class="text-xs text-muted"><i class="ti ti-${u.icon}" style="font-size:14px"></i> ${u.category} • ${u.city}</p>
+              </div>
+              <span class="bg-[#fce4e4] text-primary text-[10px] font-bold px-2 py-1 rounded-full">${u.products} Produk</span>
+            </div>
+            <p class="text-sm text-muted leading-relaxed mb-4">${u.desc}</p>
+            <div class="flex items-center gap-2 text-xs text-muted mb-4">
+              <span class="flex items-center gap-1"><i class="ti ti-star" style="font-size:14px"></i>${u.rating}</span>
+              <span class="flex items-center gap-1"><i class="ti ti-calendar-month" style="font-size:14px"></i>${u.year}</span>
+            </div>
+            <a href="umkm-profile.html" class="block w-full bg-primary text-white text-center py-2.5 rounded-full text-sm font-bold hover:brightness-90 transition-all active:scale-95 shadow-md shadow-primary/25">
+              Lihat Profil
+            </a>
+          </div>
+        </div>
+      `,
+          )
+          .join('');
+
+        if (totalPages <= 1) {
+          pagination.innerHTML = '';
+          return;
+        }
+        let phtml = '';
+        phtml += `<button class="w-10 h-10 rounded-xl border border-gray-200 flex items-center justify-center hover:border-primary hover:text-primary transition-colors ${umkmPage === 1 ? 'opacity-40 pointer-events-none' : ''}" onclick="goUmkmPage(${umkmPage - 1})"><i class="ti ti-chevron-left" style="font-size:18px"></i></button>`;
+        for (let i = 1; i <= totalPages; i++) {
+          phtml += `<button class="w-10 h-10 rounded-xl ${i === umkmPage ? 'bg-primary text-white font-bold' : 'border border-gray-200 text-sm font-medium hover:border-primary hover:text-primary'} text-sm" onclick="goUmkmPage(${i})">${i}</button>`;
+        }
+        phtml += `<button class="w-10 h-10 rounded-xl border border-gray-200 flex items-center justify-center hover:border-primary hover:text-primary transition-colors ${umkmPage === totalPages ? 'opacity-40 pointer-events-none' : ''}" onclick="goUmkmPage(${umkmPage + 1})"><i class="ti ti-chevron-right" style="font-size:18px"></i></button>`;
+        pagination.innerHTML = phtml;
+      }
+
+      function goUmkmPage(page) {
+        umkmPage = page;
+        renderUmkm();
+        document
+          .getElementById('umkm-grid')
+          .scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      document.addEventListener('DOMContentLoaded', renderUmkm);
+    </script>
+  </body>
+</html>
