@@ -128,6 +128,12 @@
       .card-gradient {
         background: linear-gradient(135deg, #b5000b 0%, #e30613 100%);
       }
+      .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
     </style>
   </head>
   <body class="bg-[#f8f9fb] text-charcoal">
@@ -465,163 +471,9 @@
         </div>
 
         <div
+          id="featured-products-grid"
           class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5 items-stretch"
-        >
-          <!-- Product 1 -->
-          <div
-            class="prod-card bg-white rounded-2xl overflow-hidden shadow-sm card-hover flex flex-col h-full"
-          >
-            <div class="relative overflow-hidden h-40">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvDM4b6Kklx17DQyxH83AhBVadEvZgJKeL0XMPYx1ZUMA0cmgF7dH-_rC6FgUFvVlVG06nvuOe0qjlR03RfRQjvxcigTUdi0wRMdwKCUkpLp-yq9khGiOCpeANZg54pDB5sW7ljeh0YjRS3w73wKKHUUTKieJuZH0vCTXuQDjLQvYM2mJsQUkv6vUAz5C6Qph08YRZU6b6-G7hQ0SvwG8cvtJm8MVbuVlDZnKXm2X9kIukAK8TAaG94CH7L82-Ij6rjQbqFbSq"
-                class="w-full h-full object-cover"
-              />
-              <span
-                class="absolute top-3 left-3 bg-primary text-white text-[10px] font-bold px-2.5 py-1 rounded-full"
-              >
-                Terlaris
-              </span>
-            </div>
-
-            <div class="p-3.5 flex flex-col flex-1">
-              <p class="text-[10px] text-primary font-bold mb-1">
-                <i class="ti ti-building-store" style="font-size: 12px"></i>
-                Kuliner
-              </p>
-
-              <h3 class="font-bold text-sm text-charcoal leading-snug mb-1">
-                Abon Sapi Pedas
-              </h3>
-
-              <p class="text-xs text-muted mb-1">UMKM: Sari Rasa</p>
-              <p class="text-primary font-bold text-base mb-3">Rp35.000</p>
-
-              <a
-                href="https://wa.me/6281234567890?text=Halo%20saya%20tertarik%20dengan%20Abon%20Sapi%20Pedas"
-                target="_blank"
-                class="mt-auto flex items-center justify-center gap-2 bg-primary-container text-white text-xs font-bold py-2.5 rounded-full hover:bg-primary transition-all active:scale-95 shadow-sm"
-              >
-                <i class="ti ti-message" style="font-size: 14px"></i>
-                Pesan via WA
-              </a>
-            </div>
-          </div>
-
-          <!-- Product 2 -->
-          <div
-            class="prod-card bg-white rounded-2xl overflow-hidden shadow-sm card-hover flex flex-col h-full"
-          >
-            <div class="relative overflow-hidden h-40">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_DlraYPgeZCpxIU9jyGvReCsrgGESVjE2d23JvP2tJL55acl2RltUXZrY_3mBV_VUwdGFNy0JC8jI_w7Ym8riyDIJ7kDJnbNWkas0M28NRR8HyZqgL8qqmDJU-NT3S3kuo3PPi8rF458PJ-DXMFDuDxb5WUkjDW1Z1VozmsfYebZletloapXkQ4xxFH3kTEtAWi9BtYvnuFslN3glBUZ9NZjxc1bSaaV7LcUJXg7gJCpFiEng9wJFZzbIeTSZo7cr2WABQSsX"
-                class="w-full h-full object-cover"
-              />
-              <span
-                class="absolute top-3 left-3 bg-primary-container text-white text-[10px] font-bold px-2.5 py-1 rounded-full"
-              >
-                Baru
-              </span>
-            </div>
-
-            <div class="p-3.5 flex flex-col flex-1">
-              <p class="text-[10px] text-primary font-bold mb-1">
-                <i class="ti ti-shirt" style="font-size: 12px"></i>
-                Fashion
-              </p>
-
-              <h3 class="font-bold text-sm text-charcoal leading-snug mb-1">
-                Batik Tulis Solo
-              </h3>
-
-              <p class="text-xs text-muted mb-1">UMKM: Batik Lestari</p>
-              <p class="text-primary font-bold text-base mb-3">Rp150.000</p>
-
-              <a
-                href="https://wa.me/6281234567891?text=Halo%20saya%20tertarik%20dengan%20Batik%20Tulis%20Solo"
-                target="_blank"
-                class="mt-auto flex items-center justify-center gap-2 bg-primary-container text-white text-xs font-bold py-2.5 rounded-full hover:bg-primary transition-all active:scale-95 shadow-sm"
-              >
-                <i class="ti ti-message" style="font-size: 14px"></i>
-                Pesan via WA
-              </a>
-            </div>
-          </div>
-
-          <!-- Product 3 -->
-          <div
-            class="prod-card bg-white rounded-2xl overflow-hidden shadow-sm card-hover flex flex-col h-full"
-          >
-            <div class="relative overflow-hidden h-40">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVtLQ3foUm-Q6XElsArr-VlhKrENszgvbjqoRA15sCMhv5acpryWxMF109xu0_YLrl-9HnuZyG1y0h3rx5U5ciS7MLHKCuxx5LT2vl5Wh-YBuv2JFXlYTlrYO3YQUcMRAuNWAGyBX02jeSr0sfjY2VmM4e0M4-p3-gkWrtEQVJrIoXb6zuiSChFNYEJFgoUJ4J7AQ3ikdiqq9zIaKBWSYsas6vA66y1QFY6-HrMLZn7RWfmXJv3LCg4P8CCDuRWhjQwPLzbpej"
-                class="w-full h-full object-cover"
-              />
-            </div>
-
-            <div class="p-3.5 flex flex-col flex-1">
-              <p class="text-[10px] text-primary font-bold mb-1">
-                <i class="ti ti-brush" style="font-size: 12px"></i>
-                Kerajinan
-              </p>
-
-              <h3 class="font-bold text-sm text-charcoal leading-snug mb-1">
-                Anyaman Bambu
-              </h3>
-
-              <p class="text-xs text-muted mb-1">UMKM: Karya Tangan</p>
-              <p class="text-primary font-bold text-base mb-3">Rp65.000</p>
-
-              <a
-                href="https://wa.me/6281234567892?text=Halo%20saya%20tertarik%20dengan%20Anyaman%20Bambu"
-                target="_blank"
-                class="mt-auto flex items-center justify-center gap-2 bg-primary-container text-white text-xs font-bold py-2.5 rounded-full hover:bg-primary transition-all active:scale-95 shadow-sm"
-              >
-                <i class="ti ti-message" style="font-size: 14px"></i>
-                Pesan via WA
-              </a>
-            </div>
-          </div>
-
-          <!-- Product 4 -->
-          <div
-            class="prod-card bg-white rounded-2xl overflow-hidden shadow-sm card-hover flex flex-col h-full"
-          >
-            <div class="relative overflow-hidden h-40">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1MNJXFh61T-YSBhSbSLaAUC76AXGKiImUwr6hdZ6OEz6y_4pi4xzA-2yOplOqzK1Qun3rglh5vFzzaxMzR2weu4Y6uGpcgVuFfAHHQj5dWMhXgfyg0vns9dHFQRt0y8fJcJcU4uw7xMJsZxqGmHBnz9ThbLwrEBaMqOztaMbRFhufHHc819CTSYmG8OBAlML37jQOusJ3x9wpINBbeQwmbpNqx1Ze_m1yXlAu1I3H5J2YOsdTrDGHoEoIbBC-6uZcj6TG7nH4"
-                class="w-full h-full object-cover"
-              />
-              <span
-                class="absolute top-3 left-3 bg-primary text-white text-[10px] font-bold px-2.5 py-1 rounded-full"
-              >
-                Organik
-              </span>
-            </div>
-
-            <div class="p-3.5 flex flex-col flex-1">
-              <p class="text-[10px] text-primary font-bold mb-1">
-                <i class="ti ti-seedling" style="font-size: 12px"></i>
-                Pertanian
-              </p>
-
-              <h3 class="font-bold text-sm text-charcoal leading-snug mb-1">
-                Beras Merah Organik
-              </h3>
-
-              <p class="text-xs text-muted mb-1">UMKM: Tani Makmur</p>
-              <p class="text-primary font-bold text-base mb-3">Rp25.000</p>
-
-              <a
-                href="https://wa.me/6281234567893?text=Halo%20saya%20tertarik%20dengan%20Beras%20Merah%20Organik"
-                target="_blank"
-                class="mt-auto flex items-center justify-center gap-2 bg-primary-container text-white text-xs font-bold py-2.5 rounded-full hover:bg-primary transition-all active:scale-95 shadow-sm"
-              >
-                <i class="ti ti-message" style="font-size: 14px"></i>
-                Pesan via WA
-              </a>
-            </div>
-          </div>
-        </div>
+        ></div>
       </section>
 
       <!-- LATEST UMKM -->
@@ -641,84 +493,10 @@
             <i class="ti ti-arrow-right" style="font-size: 18px"></i>
           </a>
         </div>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <a
-            href="umkm-profile.html"
-            class="bg-white rounded-2xl p-4 shadow-sm card-hover flex flex-col items-center text-center"
-          >
-            <div
-              class="w-16 h-16 rounded-full bg-[#fce4e4] flex items-center justify-center text-2xl mb-3"
-            >
-              <i class="ti ti-building-store" style="font-size: 24px"></i>
-            </div>
-            <h3 class="font-bold text-sm">Sari Rasa</h3>
-            <p class="text-[10px] text-muted">
-              <i class="ti ti-building-store" style="font-size: 10px"></i>
-              Kuliner • 12 produk
-            </p>
-            <span
-              class="mt-2 text-xs text-primary font-semibold hover:underline"
-              >Lihat Profil</span
-            >
-          </a>
-          <a
-            href="umkm-profile.html"
-            class="bg-white rounded-2xl p-4 shadow-sm card-hover flex flex-col items-center text-center"
-          >
-            <div
-              class="w-16 h-16 rounded-full bg-[#fce4e4] flex items-center justify-center text-2xl mb-3"
-            >
-              <i class="ti ti-shirt" style="font-size: 24px"></i>
-            </div>
-            <h3 class="font-bold text-sm">Batik Lestari</h3>
-            <p class="text-[10px] text-muted">
-              <i class="ti ti-shirt" style="font-size: 10px"></i> Fashion • 8
-              produk
-            </p>
-            <span
-              class="mt-2 text-xs text-primary font-semibold hover:underline"
-              >Lihat Profil</span
-            >
-          </a>
-          <a
-            href="umkm-profile.html"
-            class="bg-white rounded-2xl p-4 shadow-sm card-hover flex flex-col items-center text-center"
-          >
-            <div
-              class="w-16 h-16 rounded-full bg-[#fce4e4] flex items-center justify-center text-2xl mb-3"
-            >
-              <i class="ti ti-brush" style="font-size: 24px"></i>
-            </div>
-            <h3 class="font-bold text-sm">Karya Tangan</h3>
-            <p class="text-[10px] text-muted">
-              <i class="ti ti-brush" style="font-size: 10px"></i> Kerajinan • 15
-              produk
-            </p>
-            <span
-              class="mt-2 text-xs text-primary font-semibold hover:underline"
-              >Lihat Profil</span
-            >
-          </a>
-          <a
-            href="umkm-profile.html"
-            class="bg-white rounded-2xl p-4 shadow-sm card-hover flex flex-col items-center text-center"
-          >
-            <div
-              class="w-16 h-16 rounded-full bg-[#fce4e4] flex items-center justify-center text-2xl mb-3"
-            >
-              <i class="ti ti-seedling" style="font-size: 24px"></i>
-            </div>
-            <h3 class="font-bold text-sm">Tani Makmur</h3>
-            <p class="text-[10px] text-muted">
-              <i class="ti ti-seedling" style="font-size: 10px"></i> Pertanian •
-              7 produk
-            </p>
-            <span
-              class="mt-2 text-xs text-primary font-semibold hover:underline"
-              >Lihat Profil</span
-            >
-          </a>
-        </div>
+        <div
+          id="umkm-home-grid"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
+        ></div>
       </section>
 
       <!-- PROMO BANNER -->
@@ -850,8 +628,8 @@
               hello@umkmart.id
             </li>
             <li class="flex items-center gap-2">
-              <i class="ti ti-phone-call" style="font-size: 16px"></i> +62 812
-              3456 7890
+              <i class="ti ti-phone-call" style="font-size: 16px"></i> ‪+62
+              822‑6137‑5532
             </li>
           </ul>
         </div>
@@ -906,7 +684,85 @@
 
     <div class="md:hidden h-20"></div>
 
+    <script src="products.js"></script>
+    <script src="umkm-data.js"></script>
     <script>
+      const homeProductIds = [1, 11, 21, 31];
+      const badgeColors = {
+        Terlaris: 'bg-primary',
+        Baru: 'bg-primary-container',
+        Populer: 'bg-amber-500',
+        Premium: 'bg-violet-600',
+        Organik: 'bg-success',
+        'Best Seller': 'bg-blue-600',
+      };
+      const homeUmkmIds = [1, 8, 11, 16];
+
+      function renderHomeProducts() {
+        const grid = document.getElementById('featured-products-grid');
+        if (!grid) return;
+        grid.innerHTML = homeProductIds
+          .map((id) => {
+            const p = getProductById(id);
+            if (!p) return '';
+            const imgUrl =
+              p.img ||
+              `https://picsum.photos/seed/${encodeURIComponent(p.name.toLowerCase().replace(/\s+/g, '-'))}/400/400`;
+            return `<div class="prod-card bg-white rounded-2xl overflow-hidden shadow-sm card-hover flex flex-col h-full">
+            <div class="relative overflow-hidden h-40">
+              <img src="${imgUrl}" class="w-full h-full object-cover" alt="${p.name}" loading="lazy" />
+              ${p.badge ? `<span class="absolute top-3 left-3 ${badgeColors[p.badge] || 'bg-primary'} text-white text-[10px] font-bold px-2.5 py-1 rounded-full">${p.badge}</span>` : ''}
+            </div>
+            <div class="p-3.5 flex flex-col flex-1">
+              <p class="text-[10px] text-primary font-bold mb-1"><i class="ti ti-${p.icon}" style="font-size:12px"></i> ${p.category}</p>
+              <a href="product.html?id=${p.id}"><h3 class="font-bold text-sm text-charcoal leading-snug mb-1 hover:text-primary">${p.name}</h3></a>
+              <p class="text-xs text-muted mb-1">UMKM: ${p.umkm}</p>
+              <p class="text-primary font-bold text-base mb-3">Rp${p.price.toLocaleString('id-ID')}</p>
+              <a href="https://wa.me/${p.wa}?text=Halo%20saya%20tertarik%20dengan%20${encodeURIComponent(p.name)}" target="_blank" class="mt-auto flex items-center justify-center gap-2 bg-primary-container text-white text-xs font-bold py-2.5 rounded-full hover:bg-primary transition-all active:scale-95 shadow-sm">
+                <i class="ti ti-message" style="font-size:14px"></i> Pesan via WA
+              </a>
+            </div>
+          </div>`;
+          })
+          .join('');
+      }
+
+      function renderHomeUmkm() {
+        const grid = document.getElementById('umkm-home-grid');
+        if (!grid) return;
+        grid.innerHTML = homeUmkmIds
+          .map((id) => {
+            const u = getUmkmById(id);
+            if (!u) return '';
+            return `<div class="umkm-card bg-white rounded-2xl shadow-sm overflow-hidden flex flex-col">
+            <div class="h-24 bg-gradient-to-r ${u.coverGradient} relative flex-shrink-0">
+              <div class="absolute -bottom-10 left-6 w-20 h-20 rounded-2xl bg-white shadow-md flex items-center justify-center border-2 border-white"><i class="ti ti-${u.icon}" style="font-size:32px"></i></div>
+            </div>
+            <div class="pt-12 px-6 pb-6 flex-1 flex flex-col">
+              <div class="flex items-start justify-between mb-3">
+                <div>
+                  <h3 class="font-bold text-lg">${u.name}</h3>
+                  <p class="text-xs text-muted"><i class="ti ti-${u.icon}" style="font-size:14px"></i> ${u.category} • ${u.city}</p>
+                </div>
+                <span class="bg-[#fce4e4] text-primary text-[10px] font-bold px-2 py-1 rounded-full flex-shrink-0">${u.productsCount} Produk</span>
+              </div>
+              <p class="text-sm text-muted leading-relaxed mb-4 line-clamp-2">${u.desc}</p>
+              <div class="flex items-center gap-2 text-xs text-muted mb-4">
+                <span class="flex items-center gap-1"><i class="ti ti-star" style="font-size:14px"></i>${u.rating}</span>
+                <span class="flex items-center gap-1"><i class="ti ti-calendar-month" style="font-size:14px"></i>${u.year}</span>
+              </div>
+              <div class="mt-auto">
+                <a href="umkm-profile.html?id=${u.id}" class="block w-full bg-primary text-white text-center py-2.5 rounded-full text-sm font-bold hover:brightness-90 transition-all active:scale-95 shadow-md shadow-primary/25">Lihat Profil</a>
+              </div>
+            </div>
+          </div>`;
+          })
+          .join('');
+      }
+
+      renderHomeProducts();
+      renderHomeUmkm();
+
       function openSearch() {
         document.getElementById('search-overlay').classList.remove('hidden');
         setTimeout(

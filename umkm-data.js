@@ -9,7 +9,7 @@ const allUmkm = [
     rating: 4.8,
     year: 2020,
     desc: 'Sari Rasa adalah UMKM yang berfokus pada produksi abon sapi dan dendeng khas Yogyakarta. Berdiri sejak 2020, kami menggunakan daging sapi pilihan dengan resep tradisional warisan keluarga. Semua produk kami diproses secara higienis tanpa bahan pengawet buatan.',
-    phone: '+62 812 3456 7890',
+    phone: '‪+62 822‑6137‑5532',
     email: 'sari.rasa@email.com',
     address: 'Jl. Kaliurang KM 7, Sleman, Yogyakarta 55283',
     social: { instagram: '#', tiktok: '#', youtube: '#' },

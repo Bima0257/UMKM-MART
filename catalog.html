@@ -74,6 +74,7 @@
         transform: translateY(-6px);
         box-shadow: 0 20px 40px rgba(181, 0, 11, 0.12);
       }
+      #category-chips { -webkit-overflow-scrolling: touch; touch-action: pan-x; overscroll-behavior-x: contain; }
       .filter-chip {
         transition: all 0.2s;
       }
@@ -240,7 +241,7 @@
         <div
           id="category-chips"
           class="flex items-center gap-3 overflow-x-auto pb-3 mb-6"
-          style="scrollbar-width: none"
+          style="scrollbar-width: none; -webkit-overflow-scrolling: touch; touch-action: pan-x"
         >
           <button
             class="filter-chip active flex-shrink-0 border border-gray-200 px-5 py-2 rounded-full text-sm font-semibold text-charcoal"
@@ -426,16 +427,16 @@
           <h4 class="font-bold text-sm mb-4">Kontak</h4>
           <ul class="space-y-2 text-sm text-muted">
             <li class="flex items-center gap-2">
-              <i class="ti ti-map-pin" style="font-size: 16px"></i> Yogyakarta,
-              Indonesia
+              <i class="ti ti-map-pin" style="font-size: 16px"></i> Kasihan,
+              Bantul, Yogyakarta
             </li>
             <li class="flex items-center gap-2">
               <i class="ti ti-mail" style="font-size: 16px"></i>
               hello@umkmart.id
             </li>
             <li class="flex items-center gap-2">
-              <i class="ti ti-phone-call" style="font-size: 16px"></i> +62 812
-              3456 7890
+              <i class="ti ti-phone-call" style="font-size: 16px"></i> +62
+              822‑6137‑5532
             </li>
           </ul>
         </div>
