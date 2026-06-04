@@ -165,23 +165,10 @@
             >Kontak</a
           >
         </nav>
-        <div class="flex items-center gap-3">
-          <div
-            class="hidden md:flex items-center bg-gray-50 rounded-full px-4 py-2 gap-2 border border-gray-200"
-          >
-            <i class="ti ti-search text-muted" style="font-size: 18px"></i>
-            <input
-              id="header-search"
-              class="bg-transparent border-none outline-none text-sm w-44 placeholder-gray-400 focus:outline-none focus:ring-0 focus:border-transparent"
-              placeholder="Cari produk UMKM..."
-              onkeydown="if (event.key === 'Enter') goToCatalog(this.value);"
-            />
-          </div>
+        <div class="flex items-center gap-2">
           <button
-            class="md:hidden p-2 rounded-full hover:bg-gray-100"
-            onclick="
-              goToCatalog(document.getElementById('header-search').value)
-            "
+            onclick="openSearch()"
+            class="p-2 rounded-full hover:bg-gray-100 transition-colors"
           >
             <i class="ti ti-search text-muted"></i>
           </button>
@@ -194,6 +181,75 @@
         </div>
       </div>
     </header>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="fixed inset-0 z-[60] hidden">
+      <div class="absolute inset-0 bg-black/50" onclick="closeSearch()"></div>
+      <div class="relative max-w-xl mx-auto mt-20 md:mt-28 px-4">
+        <div class="bg-white rounded-2xl shadow-2xl overflow-hidden">
+          <div class="flex items-center gap-3 p-4 border-b border-gray-100">
+            <i
+              class="ti ti-search text-muted flex-shrink-0"
+              style="font-size: 20px"
+            ></i>
+            <input
+              id="search-input-popup"
+              class="flex-1 bg-transparent border-none outline-none text-sm placeholder-gray-400 focus:outline-none focus:ring-0 focus:border-transparent"
+              placeholder="Cari produk, kategori, atau UMKM..."
+              autofocus
+              onkeydown="if (event.key === 'Enter') doSearch();"
+            />
+            <button
+              onclick="closeSearch()"
+              class="p-1.5 rounded-lg hover:bg-gray-100"
+            >
+              <i class="ti ti-x text-muted" style="font-size: 18px"></i>
+            </button>
+          </div>
+          <div class="p-4">
+            <p class="text-xs text-muted font-medium mb-3">Pencarian Populer</p>
+            <div class="flex flex-wrap gap-2">
+              <button
+                onclick="quickSearch('Kuliner')"
+                class="px-3 py-1.5 bg-gray-100 rounded-full text-xs font-medium hover:bg-primary hover:text-white transition-colors"
+              >
+                Kuliner
+              </button>
+              <button
+                onclick="quickSearch('Fashion')"
+                class="px-3 py-1.5 bg-gray-100 rounded-full text-xs font-medium hover:bg-primary hover:text-white transition-colors"
+              >
+                Fashion
+              </button>
+              <button
+                onclick="quickSearch('Kerajinan')"
+                class="px-3 py-1.5 bg-gray-100 rounded-full text-xs font-medium hover:bg-primary hover:text-white transition-colors"
+              >
+                Kerajinan
+              </button>
+              <button
+                onclick="quickSearch('Pertanian')"
+                class="px-3 py-1.5 bg-gray-100 rounded-full text-xs font-medium hover:bg-primary hover:text-white transition-colors"
+              >
+                Pertanian
+              </button>
+              <button
+                onclick="quickSearch('Abon')"
+                class="px-3 py-1.5 bg-gray-100 rounded-full text-xs font-medium hover:bg-primary hover:text-white transition-colors"
+              >
+                Abon
+              </button>
+              <button
+                onclick="quickSearch('Batik')"
+                class="px-3 py-1.5 bg-gray-100 rounded-full text-xs font-medium hover:bg-primary hover:text-white transition-colors"
+              >
+                Batik
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <main class="pt-16">
       <!-- HERO SECTION -->
@@ -228,7 +284,7 @@
               ></i>
               <input
                 id="hero-search"
-                class="flex-1 bg-transparent border-none outline-none text-sm px-3 py-2.5 placeholder-gray-400  focus:outline-none focus:ring-0 focus:border-transparent"
+                class="flex-1 bg-transparent border-none outline-none text-sm px-3 py-2.5 placeholder-gray-400 focus:outline-none focus:ring-0 focus:border-transparent"
                 placeholder="Cari produk, kategori, atau UMKM..."
                 onkeydown="if (event.key === 'Enter') goToCatalog(this.value);"
               />
@@ -298,7 +354,7 @@
             Kategori Produk
           </h2>
           <div
-            class="flex items-center justify-center gap-4 md:gap-6 overflow-x-auto pb-1"
+            class="flex items-center justify-start gap-4 md:gap-6 overflow-x-auto pb-2 px-4"
           >
             <a
               href="catalog.html?cat=kuliner"
@@ -407,142 +463,161 @@
             <i class="ti ti-arrow-right" style="font-size: 18px"></i>
           </a>
         </div>
+
         <div
-          class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5"
+          class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5 items-stretch"
         >
           <!-- Product 1 -->
           <div
-            class="prod-card bg-white rounded-2xl overflow-hidden shadow-sm card-hover"
+            class="prod-card bg-white rounded-2xl overflow-hidden shadow-sm card-hover flex flex-col h-full"
           >
             <div class="relative overflow-hidden h-40">
               <img
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvDM4b6Kklx17DQyxH83AhBVadEvZgJKeL0XMPYx1ZUMA0cmgF7dH-_rC6FgUFvVlVG06nvuOe0qjlR03RfRQjvxcigTUdi0wRMdwKCUkpLp-yq9khGiOCpeANZg54pDB5sW7ljeh0YjRS3w73wKKHUUTKieJuZH0vCTXuQDjLQvYM2mJsQUkv6vUAz5C6Qph08YRZU6b6-G7hQ0SvwG8cvtJm8MVbuVlDZnKXm2X9kIukAK8TAaG94CH7L82-Ij6rjQbqFbSq"
-                alt="Produk"
                 class="w-full h-full object-cover"
               />
               <span
                 class="absolute top-3 left-3 bg-primary text-white text-[10px] font-bold px-2.5 py-1 rounded-full"
-                >Terlaris</span
               >
+                Terlaris
+              </span>
             </div>
-            <div class="p-3.5">
+
+            <div class="p-3.5 flex flex-col flex-1">
               <p class="text-[10px] text-primary font-bold mb-1">
                 <i class="ti ti-building-store" style="font-size: 12px"></i>
                 Kuliner
               </p>
+
               <h3 class="font-bold text-sm text-charcoal leading-snug mb-1">
                 Abon Sapi Pedas
               </h3>
+
               <p class="text-xs text-muted mb-1">UMKM: Sari Rasa</p>
               <p class="text-primary font-bold text-base mb-3">Rp35.000</p>
+
               <a
                 href="https://wa.me/6281234567890?text=Halo%20saya%20tertarik%20dengan%20Abon%20Sapi%20Pedas"
                 target="_blank"
-                class="flex items-center justify-center gap-2 bg-primary-container text-white text-xs font-bold py-2.5 rounded-full hover:bg-primary transition-all active:scale-95 shadow-sm"
+                class="mt-auto flex items-center justify-center gap-2 bg-primary-container text-white text-xs font-bold py-2.5 rounded-full hover:bg-primary transition-all active:scale-95 shadow-sm"
               >
-                <i class="ti ti-message" style="font-size: 14px"></i> Pesan via
-                WA
+                <i class="ti ti-message" style="font-size: 14px"></i>
+                Pesan via WA
               </a>
             </div>
           </div>
 
           <!-- Product 2 -->
           <div
-            class="prod-card bg-white rounded-2xl overflow-hidden shadow-sm card-hover"
+            class="prod-card bg-white rounded-2xl overflow-hidden shadow-sm card-hover flex flex-col h-full"
           >
             <div class="relative overflow-hidden h-40">
               <img
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_DlraYPgeZCpxIU9jyGvReCsrgGESVjE2d23JvP2tJL55acl2RltUXZrY_3mBV_VUwdGFNy0JC8jI_w7Ym8riyDIJ7kDJnbNWkas0M28NRR8HyZqgL8qqmDJU-NT3S3kuo3PPi8rF458PJ-DXMFDuDxb5WUkjDW1Z1VozmsfYebZletloapXkQ4xxFH3kTEtAWi9BtYvnuFslN3glBUZ9NZjxc1bSaaV7LcUJXg7gJCpFiEng9wJFZzbIeTSZo7cr2WABQSsX"
-                alt="Produk"
                 class="w-full h-full object-cover"
               />
               <span
                 class="absolute top-3 left-3 bg-primary-container text-white text-[10px] font-bold px-2.5 py-1 rounded-full"
-                >Baru</span
               >
+                Baru
+              </span>
             </div>
-            <div class="p-3.5">
+
+            <div class="p-3.5 flex flex-col flex-1">
               <p class="text-[10px] text-primary font-bold mb-1">
-                <i class="ti ti-shirt" style="font-size: 12px"></i> Fashion
+                <i class="ti ti-shirt" style="font-size: 12px"></i>
+                Fashion
               </p>
+
               <h3 class="font-bold text-sm text-charcoal leading-snug mb-1">
                 Batik Tulis Solo
               </h3>
+
               <p class="text-xs text-muted mb-1">UMKM: Batik Lestari</p>
               <p class="text-primary font-bold text-base mb-3">Rp150.000</p>
+
               <a
                 href="https://wa.me/6281234567891?text=Halo%20saya%20tertarik%20dengan%20Batik%20Tulis%20Solo"
                 target="_blank"
-                class="flex items-center justify-center gap-2 bg-primary-container text-white text-xs font-bold py-2.5 rounded-full hover:bg-primary transition-all active:scale-95 shadow-sm"
+                class="mt-auto flex items-center justify-center gap-2 bg-primary-container text-white text-xs font-bold py-2.5 rounded-full hover:bg-primary transition-all active:scale-95 shadow-sm"
               >
-                <i class="ti ti-message" style="font-size: 14px"></i> Pesan via
-                WA
+                <i class="ti ti-message" style="font-size: 14px"></i>
+                Pesan via WA
               </a>
             </div>
           </div>
 
           <!-- Product 3 -->
           <div
-            class="prod-card bg-white rounded-2xl overflow-hidden shadow-sm card-hover"
+            class="prod-card bg-white rounded-2xl overflow-hidden shadow-sm card-hover flex flex-col h-full"
           >
             <div class="relative overflow-hidden h-40">
               <img
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVtLQ3foUm-Q6XElsArr-VlhKrENszgvbjqoRA15sCMhv5acpryWxMF109xu0_YLrl-9HnuZyG1y0h3rx5U5ciS7MLHKCuxx5LT2vl5Wh-YBuv2JFXlYTlrYO3YQUcMRAuNWAGyBX02jeSr0sfjY2VmM4e0M4-p3-gkWrtEQVJrIoXb6zuiSChFNYEJFgoUJ4J7AQ3ikdiqq9zIaKBWSYsas6vA66y1QFY6-HrMLZn7RWfmXJv3LCg4P8CCDuRWhjQwPLzbpej"
-                alt="Produk"
                 class="w-full h-full object-cover"
               />
             </div>
-            <div class="p-3.5">
+
+            <div class="p-3.5 flex flex-col flex-1">
               <p class="text-[10px] text-primary font-bold mb-1">
-                <i class="ti ti-brush" style="font-size: 12px"></i> Kerajinan
+                <i class="ti ti-brush" style="font-size: 12px"></i>
+                Kerajinan
               </p>
+
               <h3 class="font-bold text-sm text-charcoal leading-snug mb-1">
                 Anyaman Bambu
               </h3>
+
               <p class="text-xs text-muted mb-1">UMKM: Karya Tangan</p>
               <p class="text-primary font-bold text-base mb-3">Rp65.000</p>
+
               <a
                 href="https://wa.me/6281234567892?text=Halo%20saya%20tertarik%20dengan%20Anyaman%20Bambu"
                 target="_blank"
-                class="flex items-center justify-center gap-2 bg-primary-container text-white text-xs font-bold py-2.5 rounded-full hover:bg-primary transition-all active:scale-95 shadow-sm"
+                class="mt-auto flex items-center justify-center gap-2 bg-primary-container text-white text-xs font-bold py-2.5 rounded-full hover:bg-primary transition-all active:scale-95 shadow-sm"
               >
-                <i class="ti ti-message" style="font-size: 14px"></i> Pesan via
-                WA
+                <i class="ti ti-message" style="font-size: 14px"></i>
+                Pesan via WA
               </a>
             </div>
           </div>
 
           <!-- Product 4 -->
           <div
-            class="prod-card bg-white rounded-2xl overflow-hidden shadow-sm card-hover"
+            class="prod-card bg-white rounded-2xl overflow-hidden shadow-sm card-hover flex flex-col h-full"
           >
             <div class="relative overflow-hidden h-40">
               <img
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1MNJXFh61T-YSBhSbSLaAUC76AXGKiImUwr6hdZ6OEz6y_4pi4xzA-2yOplOqzK1Qun3rglh5vFzzaxMzR2weu4Y6uGpcgVuFfAHHQj5dWMhXgfyg0vns9dHFQRt0y8fJcJcU4uw7xMJsZxqGmHBnz9ThbLwrEBaMqOztaMbRFhufHHc819CTSYmG8OBAlML37jQOusJ3x9wpINBbeQwmbpNqx1Ze_m1yXlAu1I3H5J2YOsdTrDGHoEoIbBC-6uZcj6TG7nH4"
-                alt="Produk"
                 class="w-full h-full object-cover"
               />
               <span
                 class="absolute top-3 left-3 bg-primary text-white text-[10px] font-bold px-2.5 py-1 rounded-full"
-                >Organik</span
               >
+                Organik
+              </span>
             </div>
-            <div class="p-3.5">
+
+            <div class="p-3.5 flex flex-col flex-1">
               <p class="text-[10px] text-primary font-bold mb-1">
-                <i class="ti ti-seedling" style="font-size: 12px"></i> Pertanian
+                <i class="ti ti-seedling" style="font-size: 12px"></i>
+                Pertanian
               </p>
+
               <h3 class="font-bold text-sm text-charcoal leading-snug mb-1">
                 Beras Merah Organik
               </h3>
+
               <p class="text-xs text-muted mb-1">UMKM: Tani Makmur</p>
               <p class="text-primary font-bold text-base mb-3">Rp25.000</p>
+
               <a
                 href="https://wa.me/6281234567893?text=Halo%20saya%20tertarik%20dengan%20Beras%20Merah%20Organik"
                 target="_blank"
-                class="flex items-center justify-center gap-2 bg-primary-container text-white text-xs font-bold py-2.5 rounded-full hover:bg-primary transition-all active:scale-95 shadow-sm"
+                class="mt-auto flex items-center justify-center gap-2 bg-primary-container text-white text-xs font-bold py-2.5 rounded-full hover:bg-primary transition-all active:scale-95 shadow-sm"
               >
-                <i class="ti ti-message" style="font-size: 14px"></i> Pesan via
-                WA
+                <i class="ti ti-message" style="font-size: 14px"></i>
+                Pesan via WA
               </a>
             </div>
           </div>
@@ -832,11 +907,30 @@
     <div class="md:hidden h-20"></div>
 
     <script>
-      function goToCatalog(query) {
-        const q = query.trim();
-        window.location.href =
-          'catalog.html' + (q ? '?q=' + encodeURIComponent(q) : '');
+      function openSearch() {
+        document.getElementById('search-overlay').classList.remove('hidden');
+        setTimeout(
+          () => document.getElementById('search-input-popup').focus(),
+          100,
+        );
       }
+      function closeSearch() {
+        document.getElementById('search-overlay').classList.add('hidden');
+      }
+      function doSearch() {
+        const q = document.getElementById('search-input-popup').value.trim();
+        if (q) window.location.href = 'catalog.html?q=' + encodeURIComponent(q);
+      }
+      function quickSearch(term) {
+        window.location.href = 'catalog.html?q=' + encodeURIComponent(term);
+      }
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeSearch();
+        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+          e.preventDefault();
+          openSearch();
+        }
+      });
     </script>
   </body>
 </html>

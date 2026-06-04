@@ -59,6 +59,7 @@
         transform: translateY(-6px);
         box-shadow: 0 20px 40px rgba(181, 0, 11, 0.12);
       }
+      select { appearance:none; cursor:pointer; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; padding-right:36px; }
     </style>
     <script src="umkm-data.js"></script>
   </head>
@@ -376,9 +377,22 @@
         }
         let phtml = '';
         phtml += `<button class="w-10 h-10 rounded-xl border border-gray-200 flex items-center justify-center hover:border-primary hover:text-primary transition-colors ${umkmPage === 1 ? 'opacity-40 pointer-events-none' : ''}" onclick="goUmkmPage(${umkmPage - 1})"><i class="ti ti-chevron-left" style="font-size:18px"></i></button>`;
-        for (let i = 1; i <= totalPages; i++) {
+
+        const maxVisible = 5;
+        let pStart = Math.max(1, umkmPage - Math.floor(maxVisible / 2));
+        let pEnd = Math.min(totalPages, pStart + maxVisible - 1);
+        if (pEnd - pStart + 1 < maxVisible) pStart = Math.max(1, pEnd - maxVisible + 1);
+
+        if (pStart > 1) {
+          phtml += `<button class="w-10 h-10 rounded-xl border border-gray-200 text-sm font-medium hover:border-primary hover:text-primary" onclick="goUmkmPage(1)">1</button>${pStart > 2 ? '<span class="text-muted">...</span>' : ''}`;
+        }
+        for (let i = pStart; i <= pEnd; i++) {
           phtml += `<button class="w-10 h-10 rounded-xl ${i === umkmPage ? 'bg-primary text-white font-bold' : 'border border-gray-200 text-sm font-medium hover:border-primary hover:text-primary'} text-sm" onclick="goUmkmPage(${i})">${i}</button>`;
         }
+        if (pEnd < totalPages) {
+          phtml += `${pEnd < totalPages - 1 ? '<span class="text-muted">...</span>' : ''}<button class="w-10 h-10 rounded-xl border border-gray-200 text-sm font-medium hover:border-primary hover:text-primary" onclick="goUmkmPage(${totalPages})">${totalPages}</button>`;
+        }
+
         phtml += `<button class="w-10 h-10 rounded-xl border border-gray-200 flex items-center justify-center hover:border-primary hover:text-primary transition-colors ${umkmPage === totalPages ? 'opacity-40 pointer-events-none' : ''}" onclick="goUmkmPage(${umkmPage + 1})"><i class="ti ti-chevron-right" style="font-size:18px"></i></button>`;
         pagination.innerHTML = phtml;
       }
