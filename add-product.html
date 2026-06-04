@@ -1,429 +1,208 @@
 <!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tambah Produk – UMKMart</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
-    />
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              primary: '#b5000b',
-              'primary-container': '#e30613',
-              secondary: '#5e5e5e',
-              surface: '#f8f9fb',
-              'surface-variant': '#e1e2e4',
-              'surface-container-low': '#f3f4f6',
-              'surface-container': '#edeef0',
-              'surface-container-high': '#e7e8ea',
-              'surface-container-highest': '#e1e2e4',
-              'card-bg': '#ffffff',
-              outline: '#936e69',
-              'outline-variant': '#e9bcb6',
-              success: '#10b981',
-              error: '#ba1a1a',
-              charcoal: '#1a1a2e',
-              muted: '#6b7280',
-            },
-            fontFamily: { display: ['Playfair Display', 'serif'] },
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tambah Produk – UMKMart</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#b5000b', 'primary-container': '#e30613',
+            secondary: '#5e5e5e', surface: '#f8f9fb',
+            'surface-variant': '#e1e2e4', 'surface-container-low': '#f3f4f6',
+            'surface-container': '#edeef0', 'surface-container-high': '#e7e8ea',
+            'surface-container-highest': '#e1e2e4', 'card-bg': '#ffffff',
+            outline: '#936e69', 'outline-variant': '#e9bcb6',
+            success: '#10b981', error: '#ba1a1a',
+            charcoal: '#1a1a2e', muted: '#6b7280',
           },
+          fontFamily: { display: ['Playfair Display', 'serif'] },
         },
-      };
-    </script>
-    <style>
-      * {
-        font-family: 'DM Sans', sans-serif;
-      }
-      .font-display {
-        font-family: 'Playfair Display', serif;
-      }
-      .ti {
-        font-size: 24px;
-        display: inline-block;
-        vertical-align: middle;
-      }
-      .input-field {
-        transition: all 0.2s;
-      }
-      .input-field:focus {
-        border-color: #b5000b;
-        box-shadow: 0 0 0 3px rgba(181, 0, 11, 0.1);
-      }
-      .sidebar-link {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 12px 16px;
-        border-radius: 12px;
-        font-size: 14px;
-        font-weight: 500;
-        transition: all 0.2s;
-      }
-      .sidebar-link:hover {
-        background: #fce4e4;
-        color: #b5000b;
-      }
-      .sidebar-link.active {
-        background: #b5000b;
-        color: #fff;
-      }
-      .sidebar-link.active i {
-        color: #fff;
-      }
-      .upload-area {
-        transition: all 0.2s;
-      }
-      .upload-area:hover {
-        border-color: #b5000b;
-        background: #fce4e4;
-      }
-    </style>
-  </head>
-  <body class="bg-[#f8f9fb] text-charcoal">
-    <div
-      id="sidebar-overlay"
-      class="fixed inset-0 bg-black/40 z-40 opacity-0 pointer-events-none md:hidden"
-      onclick="toggleSidebar()"
-    ></div>
+      },
+    };
+  </script>
+  <style>
+    * { font-family: 'DM Sans', sans-serif; }
+    .font-display { font-family: 'Playfair Display', serif; }
+    .ti { font-size: 24px; display: inline-block; vertical-align: middle; }
+    .input-field { transition: all .2s; }
+    .input-field:focus { border-color: #b5000b; box-shadow: 0 0 0 3px rgba(181,0,11,.1); }
+    .sidebar-link { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; font-size: 14px; font-weight: 500; transition: all .2s; }
+    .sidebar-link:hover { background: #fce4e4; color: #b5000b; }
+    .sidebar-link.active { background: #b5000b; color: #fff; }
+    .sidebar-link.active i { color: #fff; }
+    .upload-area { transition: all .2s; }
+    .upload-area:hover { border-color: #b5000b; background: #fce4e4; }
+  </style>
+</head>
+<body class="bg-[#f8f9fb] text-charcoal">
+  <div id="sidebar-overlay" class="fixed inset-0 bg-black/40 z-40 opacity-0 pointer-events-none md:hidden" onclick="toggleSidebar()"></div>
 
-    <!-- Sidebar -->
-    <aside
-      id="sidebar"
-      class="fixed top-0 left-0 h-full w-64 bg-white shadow-xl z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col"
-    >
-      <div
-        class="p-5 border-b border-gray-100 flex items-center justify-between"
-      >
-        <a href="index.html" class="font-display text-xl font-bold text-primary"
-          >UMKMart</a
-        >
-        <button
-          class="md:hidden w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200"
-          onclick="toggleSidebar()"
-        >
-          <i class="ti ti-x" style="font-size: 18px"></i>
-        </button>
-      </div>
-      <div class="p-3 border-b border-gray-100 flex items-center gap-3">
-        <div
-          class="w-10 h-10 rounded-full bg-[#fce4e4] flex items-center justify-center"
-        >
-          <i class="ti ti-user" style="font-size: 20px"></i>
-        </div>
-        <div>
-          <p class="text-sm font-bold">Sari Rasa</p>
-          <p class="text-[10px] text-muted">UMKM • Yogyakarta</p>
-        </div>
-      </div>
-      <nav class="flex-1 p-3 space-y-1 overflow-y-auto">
-        <a href="dashboard.html" class="sidebar-link">
-          <i class="ti ti-dashboard"></i> Dashboard
-        </a>
-        <a href="add-product.html" class="sidebar-link active">
-          <i class="ti ti-square-rounded-plus"></i> Tambah Produk
-        </a>
-        <a href="#" class="sidebar-link">
-          <i class="ti ti-package"></i> Kelola Produk
-        </a>
-        <a href="#" class="sidebar-link">
-          <i class="ti ti-file-invoice"></i> Pesanan
-        </a>
-        <a href="#" class="sidebar-link">
-          <i class="ti ti-user"></i> Profil UMKM
-        </a>
-      </nav>
-      <div class="p-3 border-t border-gray-100">
-        <a href="login.html" class="sidebar-link text-red-500 hover:bg-red-50">
-          <i class="ti ti-logout"></i> Keluar
-        </a>
-      </div>
-    </aside>
-
-    <!-- Main -->
-    <div class="md:ml-64">
-      <header
-        class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm"
-      >
-        <div class="h-16 px-5 flex items-center justify-between gap-4">
-          <button
-            class="md:hidden p-2 rounded-lg hover:bg-gray-100"
-            onclick="toggleSidebar()"
-          >
-            <i class="ti ti-menu-2"></i>
-          </button>
-          <h1
-            class="font-display text-xl font-bold text-charcoal hidden md:block"
-          >
-            Tambah Produk
-          </h1>
-          <div class="flex items-center gap-3">
-            <div
-              class="w-9 h-9 rounded-full bg-[#fce4e4] flex items-center justify-center"
-            >
-              <i class="ti ti-building-store" style="font-size: 20px"></i>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <main class="p-5 pb-24 md:pb-10">
-        <div class="max-w-3xl mx-auto">
-          <div class="bg-white rounded-2xl shadow-sm p-6 md:p-8">
-            <h2 class="font-bold text-xl mb-6">Informasi Produk Baru</h2>
-
-            <form onsubmit="handleSaveProduct(event)" class="space-y-5">
-              <!-- Nama Produk -->
-              <div>
-                <label class="block text-sm font-semibold text-charcoal mb-1.5"
-                  >Nama Produk <span class="text-red-500">*</span></label
-                >
-                <input
-                  type="text"
-                  class="input-field w-full px-4 py-3 border border-gray-200 rounded-xl text-sm bg-white outline-none"
-                  placeholder="Contoh: Abon Sapi Pedas"
-                  required
-                />
-              </div>
-
-              <!-- Kategori -->
-              <div>
-                <label class="block text-sm font-semibold text-charcoal mb-1.5"
-                  >Kategori <span class="text-red-500">*</span></label
-                >
-                <select
-                  class="input-field w-full px-4 py-3 border border-gray-200 rounded-xl text-sm bg-white outline-none"
-                  required
-                >
-                  <option value="">Pilih kategori</option>
-                  <option value="kuliner">
-                    <i class="ti ti-building-store" style="font-size: 14px"></i>
-                    Kuliner
-                  </option>
-                  <option value="fashion">
-                    <i class="ti ti-shirt" style="font-size: 14px"></i> Fashion
-                  </option>
-                  <option value="kerajinan">
-                    <i class="ti ti-brush" style="font-size: 14px"></i>
-                    Kerajinan
-                  </option>
-                  <option value="pertanian">
-                    <i class="ti ti-seedling" style="font-size: 14px"></i>
-                    Pertanian
-                  </option>
-                  <option value="jasa">
-                    <i class="ti ti-tools" style="font-size: 14px"></i> Jasa
-                  </option>
-                  <option value="kosmetik">
-                    <i class="ti ti-sparkles" style="font-size: 14px"></i>
-                    Kosmetik
-                  </option>
-                </select>
-              </div>
-
-              <!-- Harga -->
-              <div>
-                <label class="block text-sm font-semibold text-charcoal mb-1.5"
-                  >Harga (Rp) <span class="text-red-500">*</span></label
-                >
-                <div class="relative">
-                  <span
-                    class="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-muted"
-                    >Rp</span
-                  >
-                  <input
-                    type="number"
-                    class="input-field w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl text-sm bg-white outline-none"
-                    placeholder="35000"
-                    required
-                  />
-                </div>
-              </div>
-
-              <!-- Deskripsi -->
-              <div>
-                <label class="block text-sm font-semibold text-charcoal mb-1.5"
-                  >Deskripsi Produk</label
-                >
-                <textarea
-                  class="input-field w-full px-4 py-3 border border-gray-200 rounded-xl text-sm bg-white outline-none resize-none"
-                  rows="5"
-                  placeholder="Jelaskan produk Anda secara detail..."
-                ></textarea>
-                <p class="text-xs text-muted mt-1">
-                  Tips: Sertakan bahan, ukuran, varian, dan informasi
-                  pengiriman.
-                </p>
-              </div>
-
-              <!-- Gambar -->
-              <div>
-                <label class="block text-sm font-semibold text-charcoal mb-1.5"
-                  >Foto Produk</label
-                >
-                <div
-                  class="upload-area border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center cursor-pointer"
-                  onclick="document.getElementById('file-input').click()"
-                >
-                  <div
-                    class="w-16 h-16 rounded-full bg-[#fce4e4] flex items-center justify-center mx-auto mb-3"
-                  >
-                    <i
-                      class="ti ti-photo-plus text-primary"
-                      style="font-size: 28px"
-                    ></i>
-                  </div>
-                  <p class="text-sm font-semibold text-charcoal">
-                    Klik untuk upload foto
-                  </p>
-                  <p class="text-xs text-muted mt-1">
-                    Format JPG, PNG, WebP • Maks 5MB
-                  </p>
-                  <p
-                    id="file-name"
-                    class="text-xs text-primary font-medium mt-2 hidden"
-                  ></p>
-                </div>
-                <input
-                  type="file"
-                  id="file-input"
-                  accept="image/*"
-                  class="hidden"
-                  onchange="showFileName(this)"
-                />
-              </div>
-
-              <!-- No. WhatsApp -->
-              <div>
-                <label class="block text-sm font-semibold text-charcoal mb-1.5"
-                  >No. WhatsApp Bisnis
-                  <span class="text-red-500">*</span></label
-                >
-                <div class="relative">
-                  <span
-                    class="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-muted"
-                    >+62</span
-                  >
-                  <input
-                    type="tel"
-                    class="input-field w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl text-sm bg-white outline-none"
-                    placeholder="81234567890"
-                    required
-                  />
-                </div>
-                <p class="text-xs text-muted mt-1">
-                  Nomor ini akan digunakan untuk menerima pesanan via WhatsApp.
-                </p>
-              </div>
-
-              <!-- Submit -->
-              <div class="flex items-center gap-3 pt-3">
-                <button
-                  type="submit"
-                  class="flex-1 bg-primary text-white py-3.5 rounded-xl font-bold text-base hover:brightness-90 transition-all active:scale-[.98] shadow-lg shadow-primary/25"
-                >
-                  <span class="flex items-center justify-center gap-2">
-                    <i class="ti ti-device-floppy"></i> Simpan Produk
-                  </span>
-                </button>
-                <a
-                  href="dashboard.html"
-                  class="px-6 py-3.5 border border-gray-200 rounded-xl text-sm font-semibold text-muted hover:border-primary hover:text-primary transition-all"
-                >
-                  Batal
-                </a>
-              </div>
-            </form>
-
-            <div
-              id="success-msg"
-              class="hidden mt-6 bg-primary-50 text-green-700 text-sm font-medium px-4 py-3 rounded-xl flex items-center gap-2"
-            >
-              <i class="ti ti-circle-check-filled" style="font-size: 18px"></i>
-              Produk berhasil disimpan!
-              <a href="dashboard.html" class="underline font-semibold"
-                >Lihat di Dashboard</a
-              >
-            </div>
-          </div>
-        </div>
-      </main>
-
-      <!-- Mobile bottom nav -->
-      <nav
-        class="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-100 flex justify-around py-3 z-30"
-        style="box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08)"
-      >
-        <a
-          href="index.html"
-          class="flex flex-col items-center gap-0.5 text-muted"
-          ><i class="ti ti-building-store"></i
-          ><span class="text-[10px]">Beranda</span></a
-        >
-        <a
-          href="catalog.html"
-          class="flex flex-col items-center gap-0.5 text-muted"
-          ><i class="ti ti-layout-grid"></i
-          ><span class="text-[10px]">Katalog</span></a
-        >
-        <a
-          href="dashboard.html"
-          class="flex flex-col items-center gap-0.5 text-muted"
-          ><i class="ti ti-dashboard"></i
-          ><span class="text-[10px]">Dashboard</span></a
-        >
-        <a
-          href="add-product.html"
-          class="flex flex-col items-center gap-0.5 text-primary"
-          ><i class="ti ti-square-rounded-plus"></i
-          ><span class="text-[10px] font-bold">Tambah</span></a
-        >
-        <a
-          href="login.html"
-          class="flex flex-col items-center gap-0.5 text-muted"
-          ><i class="ti ti-user"></i><span class="text-[10px]">Akun</span></a
-        >
-      </nav>
+  <!-- Sidebar -->
+  <aside id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-white shadow-xl z-50 transform -translate-x-full md:translate-x-0 transition-transform duration-300 flex flex-col">
+    <div class="p-5 border-b border-gray-100 flex items-center justify-between">
+      <a href="index.html" class="font-display text-xl font-bold text-primary">UMKMart</a>
+      <button class="md:hidden w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200" onclick="toggleSidebar()">
+        <i class="ti ti-x" style="font-size:18px"></i>
+      </button>
     </div>
+    <div class="p-3 border-b border-gray-100 flex items-center gap-3">
+      <div class="w-10 h-10 rounded-full bg-[#fce4e4] flex items-center justify-center"><i class="ti ti-user" style="font-size:20px"></i></div>
+      <div>
+        <p class="text-sm font-bold">Sari Rasa</p>
+        <p class="text-[10px] text-muted">UMKM • Yogyakarta</p>
+      </div>
+    </div>
+    <nav class="flex-1 p-3 space-y-1 overflow-y-auto">
+      <a href="dashboard.html" class="sidebar-link">
+        <i class="ti ti-dashboard"></i> Dashboard
+      </a>
+      <a href="add-product.html" class="sidebar-link active">
+        <i class="ti ti-square-rounded-plus"></i> Tambah Produk
+      </a>
+      <a href="dashboard.html" class="sidebar-link" onclick="localStorage.setItem('dashboardPanel','produk')">
+        <i class="ti ti-package"></i> Kelola Produk
+      </a>
+      <a href="dashboard.html" class="sidebar-link" onclick="localStorage.setItem('dashboardPanel','pesanan')">
+        <i class="ti ti-file-invoice"></i> Pesanan
+      </a>
+      <a href="dashboard.html" class="sidebar-link" onclick="localStorage.setItem('dashboardPanel','profil')">
+        <i class="ti ti-user"></i> Profil UMKM
+      </a>
+    </nav>
+    <div class="p-3 border-t border-gray-100">
+      <a href="login.html" class="sidebar-link text-red-500 hover:bg-red-50">
+        <i class="ti ti-logout"></i> Keluar
+      </a>
+    </div>
+  </aside>
 
-    <script>
-      function toggleSidebar() {
-        const s = document.getElementById('sidebar');
-        const o = document.getElementById('sidebar-overlay');
-        s.classList.toggle('-translate-x-full');
-        o.classList.toggle('opacity-0');
-        o.classList.toggle('pointer-events-none');
+  <!-- Main -->
+  <div class="md:ml-64">
+    <header class="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+      <div class="h-16 px-5 flex items-center justify-between gap-4">
+        <button class="md:hidden p-2 rounded-lg hover:bg-gray-100" onclick="toggleSidebar()">
+          <i class="ti ti-menu-2"></i>
+        </button>
+        <h1 class="font-display text-xl font-bold text-charcoal hidden md:block">Tambah Produk</h1>
+        <div class="w-9 h-9 rounded-full bg-[#fce4e4] flex items-center justify-center"><i class="ti ti-building-store" style="font-size:20px"></i></div>
+      </div>
+    </header>
+
+    <main class="p-5 pb-24 md:pb-10">
+      <div class="max-w-3xl mx-auto">
+        <div class="bg-white rounded-2xl shadow-sm p-6 md:p-8">
+          <h2 class="font-bold text-xl mb-6">Informasi Produk Baru</h2>
+
+          <form onsubmit="handleSaveProduct(event)" class="space-y-5">
+            <div>
+              <label class="block text-sm font-semibold text-charcoal mb-1.5">Nama Produk <span class="text-red-500">*</span></label>
+              <input type="text" class="input-field w-full px-4 py-3 border border-gray-200 rounded-xl text-sm bg-white outline-none" placeholder="Contoh: Abon Sapi Pedas" required />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-charcoal mb-1.5">Kategori <span class="text-red-500">*</span></label>
+              <select class="input-field w-full px-4 py-3 border border-gray-200 rounded-xl text-sm bg-white outline-none" required>
+                <option value="">Pilih kategori</option>
+                <option value="kuliner"><i class="ti ti-building-store" style="font-size:14px"></i> Kuliner</option>
+                <option value="fashion"><i class="ti ti-shirt" style="font-size:14px"></i> Fashion</option>
+                <option value="kerajinan"><i class="ti ti-brush" style="font-size:14px"></i> Kerajinan</option>
+                <option value="pertanian"><i class="ti ti-seedling" style="font-size:14px"></i> Pertanian</option>
+                <option value="jasa"><i class="ti ti-wrench" style="font-size:14px"></i> Jasa</option>
+                <option value="kosmetik"><i class="ti ti-sparkles" style="font-size:14px"></i> Kosmetik</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-charcoal mb-1.5">Harga (Rp) <span class="text-red-500">*</span></label>
+              <div class="relative">
+                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-semibold text-muted">Rp</span>
+                <input type="number" class="input-field w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl text-sm bg-white outline-none" placeholder="35000" required />
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-charcoal mb-1.5">Deskripsi Produk</label>
+              <textarea class="input-field w-full px-4 py-3 border border-gray-200 rounded-xl text-sm bg-white outline-none resize-none" rows="5" placeholder="Jelaskan produk Anda secara detail..."></textarea>
+              <p class="text-xs text-muted mt-1">Tips: Sertakan bahan, ukuran, varian, dan informasi pengiriman.</p>
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-charcoal mb-1.5">Foto Produk</label>
+              <div class="upload-area border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center cursor-pointer" onclick="document.getElementById('file-input').click()">
+                <div class="w-16 h-16 rounded-full bg-[#fce4e4] flex items-center justify-center mx-auto mb-3">
+                  <i class="ti ti-photo-plus text-primary" style="font-size:28px"></i>
+                </div>
+                <p class="text-sm font-semibold text-charcoal">Klik untuk upload foto</p>
+                <p class="text-xs text-muted mt-1">Format JPG, PNG, WebP • Maks 5MB</p>
+                <p id="file-name" class="text-xs text-primary font-medium mt-2 hidden"></p>
+              </div>
+              <input type="file" id="file-input" accept="image/*" class="hidden" onchange="showFileName(this)" />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-charcoal mb-1.5">No. WhatsApp Bisnis <span class="text-red-500">*</span></label>
+              <div class="relative">
+                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-sm text-muted">+62</span>
+                <input type="tel" class="input-field w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl text-sm bg-white outline-none" placeholder="81234567890" required />
+              </div>
+              <p class="text-xs text-muted mt-1">Nomor ini akan digunakan untuk menerima pesanan via WhatsApp.</p>
+            </div>
+            <div class="flex items-center gap-3 pt-3">
+              <button type="submit" class="flex-1 bg-primary text-white py-3.5 rounded-xl font-bold text-base hover:brightness-90 transition-all active:scale-[.98] shadow-lg shadow-primary/25">
+                <i class="ti ti-device-floppy"></i> Simpan Produk
+              </button>
+              <a href="dashboard.html" class="px-6 py-3.5 border border-gray-200 rounded-xl text-sm font-semibold text-muted hover:border-primary hover:text-primary transition-all">Batal</a>
+            </div>
+          </form>
+
+          <div id="success-msg" class="hidden mt-6 bg-green-50 text-green-700 text-sm font-medium px-4 py-3 rounded-xl flex items-center gap-2">
+            <i class="ti ti-circle-check-filled" style="font-size:18px"></i>
+            Produk berhasil disimpan! <a href="dashboard.html" class="underline font-semibold">Lihat di Dashboard</a>
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+    <nav class="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-100 flex justify-around py-3 z-30" style="box-shadow:0 -4px 20px rgba(0,0,0,.08)">
+      <a href="index.html" class="flex flex-col items-center gap-0.5 text-muted"><i class="ti ti-building-store"></i><span class="text-[10px]">Beranda</span></a>
+      <a href="catalog.html" class="flex flex-col items-center gap-0.5 text-muted"><i class="ti ti-layout-grid"></i><span class="text-[10px]">Katalog</span></a>
+      <a href="dashboard.html" class="flex flex-col items-center gap-0.5 text-muted"><i class="ti ti-dashboard"></i><span class="text-[10px]">Dashboard</span></a>
+      <a href="add-product.html" class="flex flex-col items-center gap-0.5 text-primary"><i class="ti ti-square-rounded-plus"></i><span class="text-[10px] font-bold">Tambah</span></a>
+      <a href="login.html" class="flex flex-col items-center gap-0.5 text-muted"><i class="ti ti-user"></i><span class="text-[10px]">Akun</span></a>
+    </nav>
+  </div>
+
+  <script>
+    function toggleSidebar() {
+      const s = document.getElementById('sidebar');
+      const o = document.getElementById('sidebar-overlay');
+      s.classList.toggle('-translate-x-full');
+      o.classList.toggle('opacity-0');
+      o.classList.toggle('pointer-events-none');
+    }
+    function showFileName(input) {
+      const name = document.getElementById('file-name');
+      if (input.files.length > 0) {
+        name.textContent = input.files[0].name;
+        name.classList.remove('hidden');
       }
-      function showFileName(input) {
-        const name = document.getElementById('file-name');
-        if (input.files.length > 0) {
-          name.textContent = input.files[0].name;
-          name.classList.remove('hidden');
-        }
-      }
-      function handleSaveProduct(e) {
-        e.preventDefault();
-        const btn = e.target.querySelector('button[type=submit]');
-        btn.disabled = true;
-        btn.innerHTML = '<i class="ti ti-hourglass-high"></i> Menyimpan...';
-        setTimeout(() => {
-          document.getElementById('success-msg').classList.remove('hidden');
-          btn.disabled = false;
-          btn.innerHTML =
-            '<span class="flex items-center justify-center gap-2"><i class="ti ti-device-floppy"></i> Simpan Produk</span>';
-          e.target.reset();
-          document.getElementById('file-name').classList.add('hidden');
-        }, 1000);
-      }
-    </script>
-  </body>
+    }
+    function handleSaveProduct(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button[type=submit]');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="ti ti-hourglass-high"></i> Menyimpan...';
+      setTimeout(() => {
+        document.getElementById('success-msg').classList.remove('hidden');
+        btn.disabled = false;
+        btn.innerHTML = '<i class="ti ti-device-floppy"></i> Simpan Produk';
+        e.target.reset();
+        document.getElementById('file-name').classList.add('hidden');
+        setTimeout(() => window.location.href = 'dashboard.html', 1500);
+      }, 1000);
+    }
+  </script>
+</body>
 </html>

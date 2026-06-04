@@ -861,6 +861,14 @@ UMKM yang bergerak di bidang kuliner tradisional Yogyakarta. Menyediakan berbaga
         }
         if (panel === 'pesanan') renderOrders();
       }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const savedPanel = localStorage.getItem('dashboardPanel');
+        if (savedPanel) {
+          localStorage.removeItem('dashboardPanel');
+          showPanel(savedPanel);
+        }
+      });
     </script>
   </body>
 </html>

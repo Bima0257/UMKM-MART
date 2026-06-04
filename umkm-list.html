@@ -60,6 +60,7 @@
         box-shadow: 0 20px 40px rgba(181, 0, 11, 0.12);
       }
     </style>
+    <script src="umkm-data.js"></script>
   </head>
   <body class="bg-[#f8f9fb] text-charcoal">
     <header
@@ -310,141 +311,6 @@
       const UMKM_PER_PAGE = 3;
       let umkmPage = 1;
 
-      const allUmkm = [
-        {
-          name: 'Sari Rasa',
-          icon: 'building-store',
-          category: 'Kuliner',
-          city: 'Yogyakarta',
-          products: 12,
-          rating: 4.8,
-          year: 2025,
-          desc: 'Produksi abon sapi dan dendeng khas Yogyakarta dengan resep turun-temurun.',
-          gradient: 'from-primary to-primary-container',
-        },
-        {
-          name: 'Batik Lestari',
-          icon: 'shirt',
-          category: 'Fashion',
-          city: 'Solo',
-          products: 8,
-          rating: 4.9,
-          year: 2024,
-          desc: 'Batik tulis dan cap berkualitas tinggi dengan motif tradisional dan kontemporer.',
-          gradient: 'from-purple-500 to-pink-500',
-        },
-        {
-          name: 'Karya Tangan',
-          icon: 'brush',
-          category: 'Kerajinan',
-          city: 'Bandung',
-          products: 15,
-          rating: 4.7,
-          year: 2025,
-          desc: 'Kerajinan anyaman bambu dan rotan modern untuk dekorasi rumah dan hadiah.',
-          gradient: 'from-amber-500 to-orange-500',
-        },
-        {
-          name: 'Tani Makmur',
-          icon: 'seedling',
-          category: 'Pertanian',
-          city: 'Sleman',
-          products: 7,
-          rating: 4.6,
-          year: 2025,
-          desc: 'Petani organik yang menyediakan beras merah, sayuran segar, dan hasil bumi berkualitas.',
-          gradient: 'from-green-500 to-emerald-500',
-        },
-        {
-          name: 'Servis Teknik',
-          icon: 'wrench',
-          category: 'Jasa',
-          city: 'Jakarta',
-          products: 5,
-          rating: 4.5,
-          year: 2026,
-          desc: 'Jasa perbaikan elektronik rumah tangga dan service AC profesional.',
-          gradient: 'from-blue-500 to-cyan-500',
-        },
-        {
-          name: 'Madu Nusantara',
-          icon: 'building-store',
-          category: 'Kuliner',
-          city: 'Yogyakarta',
-          products: 10,
-          rating: 4.8,
-          year: 2024,
-          desc: 'Madu murni dari hutan Indonesia. Kaya manfaat untuk kesehatan dan kecantikan.',
-          gradient: 'from-rose-500 to-red-500',
-        },
-        {
-          name: 'Tenun Flores',
-          icon: 'shirt',
-          category: 'Fashion',
-          city: 'Bandung',
-          products: 6,
-          rating: 4.7,
-          year: 2025,
-          desc: 'Tenun ikat tradisional NTT dengan motif khas Flores yang penuh warna.',
-          gradient: 'from-violet-500 to-purple-500',
-        },
-        {
-          name: 'Mebel Jepara',
-          icon: 'brush',
-          category: 'Kerajinan',
-          city: 'Yogyakarta',
-          products: 9,
-          rating: 4.8,
-          year: 2024,
-          desc: 'Mebel kayu jati berkualitas dengan ukiran khas Jepara.',
-          gradient: 'from-amber-600 to-orange-600',
-        },
-        {
-          name: 'Bersih Bersih',
-          icon: 'wrench',
-          category: 'Jasa',
-          city: 'Jakarta',
-          products: 4,
-          rating: 4.4,
-          year: 2026,
-          desc: 'Jasa kebersihan rumah dan kantor. Profesional dan terpercaya.',
-          gradient: 'from-sky-500 to-blue-500',
-        },
-        {
-          name: 'Beauty Queen',
-          icon: 'sparkles',
-          category: 'Kosmetik',
-          city: 'Yogyakarta',
-          products: 8,
-          rating: 4.7,
-          year: 2025,
-          desc: 'Salon kecantikan dan produk kosmetik berkualitas.',
-          gradient: 'from-pink-500 to-rose-500',
-        },
-        {
-          name: 'Glowing Skin',
-          icon: 'sparkles',
-          category: 'Kosmetik',
-          city: 'Bandung',
-          products: 12,
-          rating: 4.6,
-          year: 2025,
-          desc: 'Produk perawatan kulit organik dari bahan alami Indonesia.',
-          gradient: 'from-fuchsia-500 to-pink-500',
-        },
-        {
-          name: 'Herbal Indo',
-          icon: 'sparkles',
-          category: 'Kosmetik',
-          city: 'Yogyakarta',
-          products: 10,
-          rating: 4.5,
-          year: 2026,
-          desc: 'Herbal dan kosmetik alami untuk kecantikan dan kesehatan.',
-          gradient: 'from-rose-500 to-pink-500',
-        },
-      ];
-
       function renderUmkm() {
         const grid = document.getElementById('umkm-grid');
         const pagination = document.getElementById('umkm-pagination');
@@ -476,26 +342,28 @@
         grid.innerHTML = pageItems
           .map(
             (u) => `
-        <div class="umkm-card bg-white rounded-2xl shadow-sm overflow-hidden">
-          <div class="h-24 bg-gradient-to-r ${u.gradient} relative">
+        <div class="umkm-card bg-white rounded-2xl shadow-sm overflow-hidden flex flex-col">
+          <div class="h-24 bg-gradient-to-r ${u.gradient} relative flex-shrink-0">
             <div class="absolute -bottom-10 left-6 w-20 h-20 rounded-2xl bg-white shadow-md flex items-center justify-center border-2 border-white"><i class="ti ti-${u.icon}" style="font-size:32px"></i></div>
           </div>
-          <div class="pt-12 px-6 pb-6">
+          <div class="pt-12 px-6 pb-6 flex-1 flex flex-col">
             <div class="flex items-start justify-between mb-3">
               <div>
                 <h3 class="font-bold text-lg">${u.name}</h3>
                 <p class="text-xs text-muted"><i class="ti ti-${u.icon}" style="font-size:14px"></i> ${u.category} • ${u.city}</p>
               </div>
-              <span class="bg-[#fce4e4] text-primary text-[10px] font-bold px-2 py-1 rounded-full">${u.products} Produk</span>
+              <span class="bg-[#fce4e4] text-primary text-[10px] font-bold px-2 py-1 rounded-full flex-shrink-0">${u.productsCount} Produk</span>
             </div>
             <p class="text-sm text-muted leading-relaxed mb-4">${u.desc}</p>
             <div class="flex items-center gap-2 text-xs text-muted mb-4">
               <span class="flex items-center gap-1"><i class="ti ti-star" style="font-size:14px"></i>${u.rating}</span>
               <span class="flex items-center gap-1"><i class="ti ti-calendar-month" style="font-size:14px"></i>${u.year}</span>
             </div>
-            <a href="umkm-profile.html" class="block w-full bg-primary text-white text-center py-2.5 rounded-full text-sm font-bold hover:brightness-90 transition-all active:scale-95 shadow-md shadow-primary/25">
-              Lihat Profil
-            </a>
+            <div class="mt-auto">
+              <a href="umkm-profile.html?id=${u.id}" class="block w-full bg-primary text-white text-center py-2.5 rounded-full text-sm font-bold hover:brightness-90 transition-all active:scale-95 shadow-md shadow-primary/25">
+                Lihat Profil
+              </a>
+            </div>
           </div>
         </div>
       `,

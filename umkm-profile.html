@@ -37,6 +37,8 @@
         },
       };
     </script>
+    <script src="products.js"></script>
+    <script src="umkm-data.js"></script>
     <style>
       * {
         font-family: 'DM Sans', sans-serif;
@@ -108,50 +110,56 @@
 
     <main class="pt-16 pb-24 md:pb-12">
       <!-- Cover -->
-      <div
-        class="h-48 md:h-64 bg-gradient-to-r from-primary to-primary-container relative"
-      >
+      <div id="cover-section" class="h-48 md:h-64 bg-gradient-to-r from-primary to-primary-container relative">
         <div class="absolute -bottom-16 left-6 md:left-10">
           <div
             class="w-28 h-28 md:w-36 md:h-36 rounded-3xl bg-white shadow-xl flex items-center justify-center text-5xl md:text-6xl border-4 border-white"
           >
-            <i class="ti ti-building-store" style="font-size:64px"></i>
+            <i id="umkm-icon" class="ti ti-building-store" style="font-size:64px"></i>
           </div>
         </div>
       </div>
 
       <div class="max-w-7xl mx-auto px-5 pt-20">
+        <!-- Breadcrumb -->
+        <nav class="text-xs text-muted mb-4" id="breadcrumb">
+          <a href="index.html" class="hover:text-primary">Beranda</a>
+          <span class="mx-1">/</span>
+          <a href="umkm-list.html" class="hover:text-primary">UMKM</a>
+          <span class="mx-1">/</span>
+          <span class="text-charcoal font-medium" id="breadcrumb-name">Profil</span>
+        </nav>
+
         <!-- Profile Header -->
         <div
           class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8"
         >
           <div>
-            <h1
-              class="font-display text-3xl md:text-4xl font-bold text-charcoal"
-            >
-              Sari Rasa
+            <h1 id="umkm-name" class="font-display text-3xl md:text-4xl font-bold text-charcoal">
+              UMKM
             </h1>
-            <p class="text-muted text-sm mt-1">
-              <i class="ti ti-building-store" style="font-size:14px"></i> Kuliner • Yogyakarta • Bergabung 2025
+            <p id="umkm-meta" class="text-muted text-sm mt-1">
+              <i id="meta-icon" class="ti ti-building-store" style="font-size:14px"></i>
+              <span id="meta-category"></span> &bull; <span id="meta-city"></span> &bull; Bergabung <span id="meta-year"></span>
             </p>
             <div class="flex items-center gap-4 mt-2 text-sm">
-              <span class="flex items-center gap-1 text-muted"
-                >                <i class="ti ti-star-filled text-yellow-400" style="font-size: 16px"></i
-                >4.8 (120 rating)</span
-              >
-              <span class="flex items-center gap-1 text-muted"
-                >                <i class="ti ti-package" style="font-size: 16px"></i
-                >12 produk</span
-              >
+              <span id="rating-badge" class="flex items-center gap-1 text-muted">
+                <i class="ti ti-star-filled text-yellow-400" style="font-size: 16px"></i>
+                <span id="rating-value"></span>
+              </span>
+              <span class="flex items-center gap-1 text-muted">
+                <i class="ti ti-package" style="font-size: 16px"></i>
+                <span id="product-count-display"></span> produk
+              </span>
             </div>
           </div>
           <a
+            id="whatsapp-btn"
             href="https://wa.me/6281234567890"
             target="_blank"
             class="flex items-center gap-2 bg-primary-container text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-primary transition-all active:scale-95 shadow-md shadow-green-600/25"
           >
-            <i class="ti ti-message"></i> Hubungi via
-            WhatsApp
+            <i class="ti ti-message"></i> Hubungi via WhatsApp
           </a>
         </div>
 
@@ -161,94 +169,14 @@
             <!-- Description -->
             <div class="bg-white rounded-2xl shadow-sm p-6">
               <h2 class="font-bold text-lg mb-3">Tentang UMKM</h2>
-              <p class="text-sm text-muted leading-relaxed">
-                Sari Rasa adalah UMKM yang berfokus pada produksi abon sapi dan
-                dendeng khas Yogyakarta. Berdiri sejak 2020, kami menggunakan
-                daging sapi pilihan dengan resep tradisional warisan keluarga.
-                Semua produk kami diproses secara higienis tanpa bahan pengawet
-                buatan. Kami melayani pengiriman ke seluruh Indonesia melalui
-                berbagai jasa ekspedisi.
-              </p>
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-5">
-                <div class="text-center p-3 bg-[#fce4e4] rounded-xl">
-                  <p class="text-xl font-bold text-primary">2020</p>
-                  <p class="text-[10px] text-muted">Berdiri</p>
-                </div>
-                <div class="text-center p-3 bg-[#fce4e4] rounded-xl">
-                  <p class="text-xl font-bold text-primary">12</p>
-                  <p class="text-[10px] text-muted">Total Produk</p>
-                </div>
-                <div class="text-center p-3 bg-[#fce4e4] rounded-xl">
-                  <p class="text-xl font-bold text-primary">5K+</p>
-                  <p class="text-[10px] text-muted">Terjual</p>
-                </div>
-                <div class="text-center p-3 bg-[#fce4e4] rounded-xl">
-                  <p class="text-xl font-bold text-primary">4.8</p>
-                  <p class="text-[10px] text-muted">Rating</p>
-                </div>
-              </div>
+              <p id="umkm-desc" class="text-sm text-muted leading-relaxed"></p>
+              <div id="stats-cards" class="grid grid-cols-2 md:grid-cols-4 gap-3 mt-5"></div>
             </div>
 
             <!-- Products -->
             <div>
               <h2 class="font-bold text-lg mb-4">Produk UMKM Ini</h2>
-              <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-                <div
-                  class="prod-card bg-white rounded-2xl overflow-hidden shadow-sm card-hover"
-                >
-                  <div class="relative overflow-hidden h-36">
-                    <img
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvDM4b6Kklx17DQyxH83AhBVadEvZgJKeL0XMPYx1ZUMA0cmgF7dH-_rC6FgUFvVlVG06nvuOe0qjlR03RfRQjvxcigTUdi0wRMdwKCUkpLp-yq9khGiOCpeANZg54pDB5sW7ljeh0YjRS3w73wKKHUUTKieJuZH0vCTXuQDjLQvYM2mJsQUkv6vUAz5C6Qph08YRZU6b6-G7hQ0SvwG8cvtJm8MVbuVlDZnKXm2X9kIukAK8TAaG94CH7L82-Ij6rjQbqFbSq"
-                      class="w-full h-full object-cover"
-                      alt=""
-                    />
-                  </div>
-                  <div class="p-3">
-                    <a href="product.html"
-                      ><h3 class="font-bold text-sm hover:text-primary">
-                        Abon Sapi Pedas
-                      </h3></a
-                    >
-                    <p class="text-primary font-bold text-sm">Rp35.000</p>
-                  </div>
-                </div>
-                <div
-                  class="prod-card bg-white rounded-2xl overflow-hidden shadow-sm card-hover"
-                >
-                  <div class="relative overflow-hidden h-36">
-                    <img
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOgJiq2PRRcTmbVIwfZHSYrakdzzQSgMaQKNCCyi4zzPgR4yiKVzDNvrgz_3aPMH_m0xEOk6Y8MGZDW5r_QLxY984OA85WKmnfHIW36B4k3RR3JkmAVEnvQ2ZOoAQDgBLd1OiAnvLyxTd9q0OkSQE_yss-GupK4egTEcIAJYymKurPZwOUcvBkcYP7w3tjjCeHLl8HwuQlrOwCm_B5OYZ5pY5s5CHrHq-gDlw7xbrWq2D6J74H33zPqexQuVyrwdz03ytZ_yWC"
-                      class="w-full h-full object-cover"
-                      alt=""
-                    />
-                  </div>
-                  <div class="p-3">
-                    <a href="product.html"
-                      ><h3 class="font-bold text-sm hover:text-primary">
-                        Dendeng Sapi
-                      </h3></a
-                    >
-                    <p class="text-primary font-bold text-sm">Rp45.000</p>
-                  </div>
-                </div>
-                <div
-                  class="prod-card bg-white rounded-2xl overflow-hidden shadow-sm card-hover"
-                >
-                  <div
-                    class="relative overflow-hidden h-36 bg-gradient-to-br from-amber-50 to-orange-100 flex items-center justify-center"
-                  >
-                    <span class="text-5xl">🥜</span>
-                  </div>
-                  <div class="p-3">
-                    <a href="product.html"
-                      ><h3 class="font-bold text-sm hover:text-primary">
-                        Kacang Pedas
-                      </h3></a
-                    >
-                    <p class="text-primary font-bold text-sm">Rp20.000</p>
-                  </div>
-                </div>
-              </div>
+              <div id="products-grid" class="grid grid-cols-2 md:grid-cols-3 gap-4"></div>
             </div>
           </div>
 
@@ -256,59 +184,19 @@
           <div class="space-y-4">
             <div class="bg-white rounded-2xl shadow-sm p-6">
               <h3 class="font-bold text-sm mb-4">Informasi Kontak</h3>
-              <ul class="space-y-3">
-                <li class="flex items-start gap-3">
-                  <i class="ti ti-map-pin text-primary" style="font-size: 18px"></i>
-                  <div>
-                    <p class="text-sm font-medium">Alamat</p>
-                    <p class="text-xs text-muted">
-                      Jl. Kaliurang KM 7, Sleman, Yogyakarta 55283
-                    </p>
-                  </div>
-                </li>
-                <li class="flex items-start gap-3">
-                  <i class="ti ti-phone-call text-primary" style="font-size: 18px"></i>
-                  <div>
-                    <p class="text-sm font-medium">Telepon</p>
-                    <p class="text-xs text-muted">+62 812 3456 7890</p>
-                  </div>
-                </li>
-                <li class="flex items-start gap-3">
-                  <i class="ti ti-mail text-primary" style="font-size: 18px"></i>
-                  <div>
-                    <p class="text-sm font-medium">Email</p>
-                    <p class="text-xs text-muted">sari.rasa@email.com</p>
-                  </div>
-                </li>
-              </ul>
+              <ul id="contact-list" class="space-y-3"></ul>
             </div>
             <div class="bg-white rounded-2xl shadow-sm p-6">
               <h3 class="font-bold text-sm mb-4">Media Sosial</h3>
-              <div class="flex items-center gap-3">
-                <a
-                  href="#"
-                  class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
-                  ><i class="ti ti-brand-instagram"></i></a
-                >
-                <a
-                  href="#"
-                  class="w-10 h-10 rounded-xl bg-sky-50 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
-                  ><i class="ti ti-brand-tiktok"></i></a
-                >
-                <a
-                  href="#"
-                  class="w-10 h-10 rounded-xl bg-purple-50 flex items-center justify-center hover:bg-primary hover:text-white transition-all"
-                  ><i class="ti ti-brand-youtube"></i></a
-                >
-              </div>
+              <div id="social-links" class="flex items-center gap-3"></div>
             </div>
             <a
+              id="whatsapp-sidebar"
               href="https://wa.me/6281234567890"
               target="_blank"
               class="flex items-center justify-center gap-2 bg-primary-container text-white py-3.5 rounded-2xl font-bold text-sm hover:bg-primary transition-all active:scale-[.98] shadow-lg shadow-green-600/25"
             >
-              <i class="ti ti-message"></i> Hubungi via
-              WhatsApp
+              <i class="ti ti-message"></i> Hubungi via WhatsApp
             </a>
           </div>
         </div>
@@ -439,5 +327,119 @@
       >
     </nav>
     <div class="md:hidden h-20"></div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const id = parseInt(new URLSearchParams(location.search).get('id')) || 1;
+        const umkm = getUmkmById(id);
+        if (!umkm) { window.location.href = 'umkm-list.html'; return; }
+
+        document.title = umkm.name + ' – UMKMart';
+        document.getElementById('breadcrumb-name').textContent = umkm.name;
+
+        const products = getProductsByUmkmId(umkm.id);
+        const totalSold = products.reduce(function (sum, p) { return sum + (p.sold || 0); }, 0);
+
+        function renderCover(u) {
+          document.getElementById('cover-section').className =
+            'h-48 md:h-64 bg-gradient-to-r ' + u.coverGradient + ' relative';
+        }
+
+        function renderHeader(u) {
+          var icon = iconMap[u.category] || 'building-store';
+          document.getElementById('umkm-icon').className = 'ti ti-' + icon + '';
+          document.getElementById('umkm-name').textContent = u.name;
+          document.getElementById('meta-icon').className = 'ti ti-' + icon + '';
+          document.getElementById('meta-category').textContent = u.category;
+          document.getElementById('meta-city').textContent = u.city;
+          document.getElementById('meta-year').textContent = u.year;
+          document.getElementById('rating-value').textContent = u.rating + ' (' + products.length + ' rating)';
+          document.getElementById('product-count-display').textContent = products.length;
+
+          var wa = u.phone ? u.phone.replace(/[^0-9]/g, '') : '';
+          var waUrl = 'https://wa.me/' + wa;
+          document.getElementById('whatsapp-btn').href = waUrl;
+          document.getElementById('whatsapp-sidebar').href = waUrl;
+        }
+
+        function renderContent(u) {
+          document.getElementById('umkm-desc').textContent = u.desc;
+
+          var statsHtml =
+            '<div class="text-center p-3 bg-[#fce4e4] rounded-xl"><p class="text-xl font-bold text-primary">' + u.year +
+            '</p><p class="text-[10px] text-muted">Berdiri</p></div>' +
+            '<div class="text-center p-3 bg-[#fce4e4] rounded-xl"><p class="text-xl font-bold text-primary">' + products.length +
+            '</p><p class="text-[10px] text-muted">Total Produk</p></div>' +
+            '<div class="text-center p-3 bg-[#fce4e4] rounded-xl"><p class="text-xl font-bold text-primary">' + (totalSold > 999 ? Math.floor(totalSold / 1000) + 'K+' : totalSold) +
+            '</p><p class="text-[10px] text-muted">Terjual</p></div>' +
+            '<div class="text-center p-3 bg-[#fce4e4] rounded-xl"><p class="text-xl font-bold text-primary">' + u.rating +
+            '</p><p class="text-[10px] text-muted">Rating</p></div>';
+          document.getElementById('stats-cards').innerHTML = statsHtml;
+
+          var productHtml = '';
+          for (var i = 0; i < products.length; i++) {
+            var p = products[i];
+            var img = getProductImage(p);
+            var link = 'product.html?id=' + p.id;
+            productHtml +=
+              '<div class="prod-card bg-white rounded-2xl overflow-hidden shadow-sm card-hover">' +
+                '<div class="relative overflow-hidden h-36">' +
+                  '<img src="' + img + '" class="w-full h-full object-cover" alt="' + p.name + '" />' +
+                '</div>' +
+                '<div class="p-3">' +
+                  '<a href="' + link + '"><h3 class="font-bold text-sm hover:text-primary">' + p.name + '</h3></a>' +
+                  '<p class="text-primary font-bold text-sm">Rp' + p.price.toLocaleString('id-ID') + '</p>' +
+                '</div>' +
+              '</div>';
+          }
+          if (products.length === 0) {
+            productHtml = '<p class="text-sm text-muted col-span-full">Belum ada produk.</p>';
+          }
+          document.getElementById('products-grid').innerHTML = productHtml;
+
+          var contactHtml = '';
+          if (u.address) {
+            contactHtml +=
+              '<li class="flex items-start gap-3">' +
+                '<i class="ti ti-map-pin text-primary" style="font-size: 18px"></i>' +
+                '<div><p class="text-sm font-medium">Alamat</p><p class="text-xs text-muted">' + u.address + '</p></div>' +
+              '</li>';
+          }
+          if (u.phone) {
+            contactHtml +=
+              '<li class="flex items-start gap-3">' +
+                '<i class="ti ti-phone-call text-primary" style="font-size: 18px"></i>' +
+                '<div><p class="text-sm font-medium">Telepon</p><p class="text-xs text-muted">' + u.phone + '</p></div>' +
+              '</li>';
+          }
+          if (u.email) {
+            contactHtml +=
+              '<li class="flex items-start gap-3">' +
+                '<i class="ti ti-mail text-primary" style="font-size: 18px"></i>' +
+                '<div><p class="text-sm font-medium">Email</p><p class="text-xs text-muted">' + u.email + '</p></div>' +
+              '</li>';
+          }
+          document.getElementById('contact-list').innerHTML = contactHtml;
+
+          var socialHtml = '';
+          var socialPlatforms = [
+            { key: 'instagram', icon: 'brand-instagram', bg: 'bg-blue-50' },
+            { key: 'tiktok', icon: 'brand-tiktok', bg: 'bg-sky-50' },
+            { key: 'youtube', icon: 'brand-youtube', bg: 'bg-purple-50' }
+          ];
+          for (var j = 0; j < socialPlatforms.length; j++) {
+            var s = socialPlatforms[j];
+            var url = u.social && u.social[s.key] ? u.social[s.key] : '#';
+            socialHtml +=
+              '<a href="' + url + '" class="w-10 h-10 rounded-xl ' + s.bg + ' flex items-center justify-center hover:bg-primary hover:text-white transition-all"><i class="ti ti-' + s.icon + '"></i></a>';
+          }
+          document.getElementById('social-links').innerHTML = socialHtml;
+        }
+
+        renderCover(umkm);
+        renderHeader(umkm);
+        renderContent(umkm);
+      });
+    </script>
   </body>
 </html>
